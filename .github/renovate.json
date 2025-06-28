@@ -33,8 +33,8 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^packer/versions\\.pkr\\.hcl$"
+      "managerFilePatterns": [
+        "/^packer/versions\\.pkr\\.hcl$/"
       ],
       "matchStrings": [
         "required_version\\s*=\\s*\"(?<currentValue>[^\"]+)\""
@@ -45,8 +45,8 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^packer/versions\\.pkr\\.hcl$"
+      "managerFilePatterns": [
+        "/^packer/versions\\.pkr\\.hcl$/"
       ],
       "matchStrings": [
         "ansible\\s*=\\s*\\{[^}]*version\\s*=\\s*\"(?<currentValue>[^\"]+)\"[^}]*source\\s*=\\s*\"github\\.com/hashicorp/(?<depName>ansible)\"[^}]*\\}"
@@ -57,8 +57,8 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^packer/versions\\.pkr\\.hcl$"
+      "managerFilePatterns": [
+        "/^packer/versions\\.pkr\\.hcl$/"
       ],
       "matchStrings": [
         "virtualbox\\s*=\\s*\\{[^}]*version\\s*=\\s*\"(?<currentValue>[^\"]+)\"[^}]*source\\s*=\\s*\"github\\.com/hashicorp/(?<depName>virtualbox)\"[^}]*\\}"
@@ -67,7 +67,6 @@
       "depNameTemplate": "hashicorp/packer-plugin-virtualbox",
       "versioningTemplate": "semver"
     }
-
   ],
   "customDatasources": {
     "kali-linux-installer": {
