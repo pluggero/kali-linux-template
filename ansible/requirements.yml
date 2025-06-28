@@ -5,7 +5,7 @@ roles:
   - src: pluggero.alacritty
     version: 1.5.2
   - src: pluggero.rustup
-    version: 1.1.0
+    version: 1.2.0
   - src: pluggero.i3wm
     version: 1.2.0
   - src: pluggero.fish
