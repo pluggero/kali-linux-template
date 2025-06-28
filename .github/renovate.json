@@ -34,10 +34,10 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/^packer/versions\\.pkr\\.hcl$/"
+        "/^packer/versions.pkr\\.hcl$/"
       ],
       "matchStrings": [
-        "required_version\\s*=\\s*\"(?<currentValue>[^\"]+)\""
+        "required_version\\s+=\\s+\"=\\s+(?<currentValue>[\\d\\.]+)\""
       ],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "hashicorp/packer",
@@ -46,10 +46,10 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/^packer/versions\\.pkr\\.hcl$/"
+        "/^packer/versions.pkr\\.hcl$/"
       ],
       "matchStrings": [
-        "ansible\\s*=\\s*\\{[^}]*version\\s*=\\s*\"(?<currentValue>[^\"]+)\"[^}]*source\\s*=\\s*\"github\\.com/hashicorp/(?<depName>ansible)\"[^}]*\\}"
+        "ansible\\s+=\\s+\\{\\s+version\\s+=\\s+\"=\\s+(?<currentValue>[\\d\\.]+)\""
       ],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "hashicorp/packer-plugin-ansible",
@@ -58,10 +58,10 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/^packer/versions\\.pkr\\.hcl$/"
+        "/^packer/versions.pkr\\.hcl$/"
       ],
       "matchStrings": [
-        "virtualbox\\s*=\\s*\\{[^}]*version\\s*=\\s*\"(?<currentValue>[^\"]+)\"[^}]*source\\s*=\\s*\"github\\.com/hashicorp/(?<depName>virtualbox)\"[^}]*\\}"
+        "virtualbox\\s+=\\s+\\{\\s+version\\s+=\\s+\"=\\s+(?<currentValue>[\\d\\.]+)\""
       ],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "hashicorp/packer-plugin-virtualbox",

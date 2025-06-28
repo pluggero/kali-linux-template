@@ -1,2 +1,2 @@
-ansible
-passlib
+ansible==11.6.0
+passlib==1.7.4
