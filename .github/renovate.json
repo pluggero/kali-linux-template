@@ -24,7 +24,7 @@
         "/^packer/variables.auto.pkrvars\\.hcl$/"
       ],
       "matchStrings": [
-        "vm_guest_os_version\\s+=\\s+\"(?<currentValue>[\\d\\.]+)\""
+        "vm_guest_os_version\\s+=\\s+\"(?<currentValue>[^\"]+)\""
       ],
       "datasourceTemplate": "custom.kali-linux-installer",
       "depNameTemplate": "kali-linux-installer",
