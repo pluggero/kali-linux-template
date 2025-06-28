@@ -1,0 +1,78 @@
+{
+  "extends": [
+    "config:best-practices",
+    ":disableRateLimiting"
+  ],
+  "enabledManagers": [
+    "github-actions",
+    "pip_requirements",
+    "custom.regex",
+    "ansible-galaxy"
+  ],
+  "ansible-galaxy": {
+    "managerFilePatterns": [
+      "/^ansible/requirements\\.ya?ml$/"
+    ]
+  },
+  "assignees": [
+    "pluggero"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^packer/variables.auto.pkrvars\\.hcl$/"
+      ],
+      "matchStrings": [
+        "vm_guest_os_version\\s+=\\s+\"(?<currentValue>[\\d\\.]+)\""
+      ],
+      "datasourceTemplate": "custom.kali-linux-installer",
+      "depNameTemplate": "kali-linux-installer",
+      "versioningTemplate": "loose",
+      "extractVersionTemplate": "kali-linux-(?<version>.+)-installer-amd64\\.iso"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "^packer/versions\\.pkr\\.hcl$"
+      ],
+      "matchStrings": [
+        "required_version\\s*=\\s*\"(?<currentValue>[^\"]+)\""
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "hashicorp/packer",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "^packer/versions\\.pkr\\.hcl$"
+      ],
+      "matchStrings": [
+        "ansible\\s*=\\s*\\{[^}]*version\\s*=\\s*\"(?<currentValue>[^\"]+)\"[^}]*source\\s*=\\s*\"github\\.com/hashicorp/(?<depName>ansible)\"[^}]*\\}"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "hashicorp/packer-plugin-ansible",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "^packer/versions\\.pkr\\.hcl$"
+      ],
+      "matchStrings": [
+        "virtualbox\\s*=\\s*\\{[^}]*version\\s*=\\s*\"(?<currentValue>[^\"]+)\"[^}]*source\\s*=\\s*\"github\\.com/hashicorp/(?<depName>virtualbox)\"[^}]*\\}"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "hashicorp/packer-plugin-virtualbox",
+      "versioningTemplate": "semver"
+    }
+
+  ],
+  "customDatasources": {
+    "kali-linux-installer": {
+      "defaultRegistryUrlTemplate": "https://cdimage.kali.org/current/",
+      "format": "html"
+    }
+  }
+}

@@ -6,8 +6,8 @@
 
 locals {
   kali_iso_name_x86_64 = "kali-linux-${var.vm_guest_os_version}-installer-amd64.iso"
-  kali_iso_url_x86_64 = "https://cdimage.kali.org/kali-${var.vm_guest_os_version}/${local.kali_iso_name_x86_64}"
-  kali_iso_checksum_x86_64 = "file:https://cdimage.kali.org/kali-${var.vm_guest_os_version}/SHA256SUMS"
+  kali_iso_url_x86_64 = "https://old.kali.org/kali-images/kali-${var.vm_guest_os_version}/${local.kali_iso_name_x86_64}"
+  kali_iso_checksum_x86_64 = "file:https://old.kali.org/kali-images/kali-${var.vm_guest_os_version}/SHA256SUMS"
 }
 
 local "http_directory" {
