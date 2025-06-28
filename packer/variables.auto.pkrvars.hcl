@@ -6,7 +6,7 @@
 http_interface                      = "pentap0"
 
 # Virtual Machine Settings
-vm_guest_os_version                 = "2025.1c"
+vm_guest_os_version                 = "2025.2"
 vm_boot_wait                        = "10s"
 vm_cpu_core                         = 4
 vm_mem_size                         = 6144 # Must be at least 6144 MB for /tmp to be large enough
