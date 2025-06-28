@@ -1,0 +1,103 @@
+burpsuite_extensions_community:
+  - name: "ParamMiner"
+    bapp_uuid: "17d2949a985c4b7ca092728dba871943"
+    bapp_serial_version: "33"
+    type: "java"
+    use_ai: false
+    loaded: true
+  - name: "Content Type Converter"
+    bapp_uuid: "db57ecbe2cb7446292a94aa6181c9278"
+    bapp_serial_version: "4"
+    type: "java"
+    use_ai: false
+    loaded: true
+  - name: "Hackvertor"
+    bapp_uuid: "65033cbd2c344fbabe57ac060b5dd100"
+    bapp_serial_version: "48"
+    type: "java"
+    use_ai: false
+    loaded: true
+  - name: "GAP (Get All Parameters, Links, and Words)"
+    bapp_uuid: "815bb4ab64e240618dc673d65016e919"
+    bapp_serial_version: "7"
+    type: "python"
+    use_ai: false
+    loaded: true
+  - name: "CSTC, Modular HTTP Manipulator"
+    bapp_uuid: "866df66d339d4bcd9b599772aff32efd"
+    bapp_serial_version: "10"
+    type: "java"
+    use_ai: false
+    loaded: false
+  - name: "Auth Analyzer"
+    bapp_uuid: "7db49799266c4f85866f54d9eab82c89"
+    bapp_serial_version: "27"
+    type: "java"
+    use_ai: false
+    loaded: false
+  - name: "HTTP Request Smuggler"
+    bapp_uuid: "aaaa60ef945341e8a450217a54a11646"
+    bapp_serial_version: "42"
+    type: "java"
+    use_ai: false
+    loaded: false
+  - name: "Java Deserialization Scanner"
+    bapp_uuid: "228336544ebe4e68824b5146dbbd93ae"
+    bapp_serial_version: "16"
+    type: "java"
+    use_ai: false
+    loaded: false
+  - name: "JSON Web Tokens"
+    bapp_uuid: "f923cbf91698420890354c1d8958fee6"
+    bapp_serial_version: "29"
+    type: "java"
+    use_ai: false
+    loaded: false
+  - name: "JWT Editor"
+    bapp_uuid: "26aaa5ded2f74beea19e2ed8345a93dd"
+    bapp_serial_version: "18"
+    type: "java"
+    use_ai: false
+    loaded: false
+  - name: "JSON Web Token Attacker"
+    bapp_uuid: "82d6c60490b540369d6d5d01822bdf61"
+    bapp_serial_version: "5"
+    type: "java"
+    use_ai: false
+    loaded: false
+  - name: "EsPReSSO"
+    bapp_uuid: "e1d08d4ab1ea4c17be3431d7d2b20b30"
+    bapp_serial_version: "5"
+    type: "java"
+    use_ai: false
+    loaded: false
+  - name: "Wsdler"
+    bapp_uuid: "594a49bb233748f2bc80a9eb18a2e08f"
+    bapp_serial_version: "6"
+    type: "java"
+    use_ai: false
+    loaded: false
+  - name: "ExifTool Scanner"
+    bapp_uuid: "858352a27e6e4a6caa802e61fdeb7dd4"
+    bapp_serial_version: "5"
+    type: "java"
+    use_ai: false
+    loaded: false
+  - name: "Socket Sleuth"
+    bapp_uuid: "42bda36c7fab496a87313943df698668"
+    bapp_serial_version: "4"
+    type: "java"
+    use_ai: false
+    loaded: false
+  - name: "UUID Detector"
+    bapp_uuid: "65f32f209a72480ea5f1a0dac4f38248"
+    bapp_serial_version: "1"
+    type: "java"
+    use_ai: false
+    loaded: false
+  - name: "Stepper"
+    bapp_uuid: "065d156ecefd480fa3efa36e05d55f77"
+    bapp_serial_version: "6"
+    type: "java"
+    use_ai: false
+    loaded: false

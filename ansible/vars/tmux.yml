@@ -1,0 +1,4 @@
+tmux_shell: "/usr/bin/fish"
+tmux_plugins:
+  - name: "vim-tmux-navigator"
+    namespace: "christoomey"

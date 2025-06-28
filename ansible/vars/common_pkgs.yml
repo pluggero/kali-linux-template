@@ -1,0 +1,37 @@
+common_pkgs:
+  apt:
+    install:
+      - 7zip
+      - bc
+      - jq
+      - kali-themes
+      - keepassxc
+      - libreoffice
+      - lightdm
+      - metasploit-framework
+      - nmap
+      - openvpn
+      - pipx
+      - pulsemixer
+      - python3-venv
+      - qt5ct
+      - qt6ct
+      - ripgrep
+      - rsync
+      - seclists
+      - wafw00f
+      - wireplumber
+      - xclip
+      - zip
+      - zoxide
+      - enum4linux
+      - smbclient
+      - maven
+      - wireshark
+      - xxd
+      - usbutils
+      # mobile pentesting
+      - adb
+    remove: []
+    remove_regex: []
+    remove_modified_configs: false

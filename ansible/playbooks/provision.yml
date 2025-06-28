@@ -1,0 +1,34 @@
+---
+- name: Kali provisioning
+  hosts: default
+  become_method: ansible.builtin.sudo
+
+  vars_files:
+    - ../inventory/group_vars/all/vault.yml
+    - ../vars/alacritty.yml
+    - ../vars/burpsuite_community.yml
+    - ../vars/common_pkgs.yml
+    - ../vars/firefox.yml
+    - ../vars/golang.yml
+    - ../vars/i3wm.yml
+    - ../vars/tmux.yml
+
+  vars:
+    virtualbox_guest_reboot: false
+
+  roles:
+    - pluggero.common_pkgs
+    - pluggero.bibata_cursor
+    - pluggero.rustup
+    - pluggero.alacritty
+    - pluggero.yazi
+    - pluggero.fish
+    - pluggero.tmux
+    - pluggero.i3wm
+    - pluggero.docker
+    - pluggero.virtualbox_guest
+    - pluggero.neovim
+    - pluggero.firefox
+    - pluggero.rofi
+    - pluggero.burpsuite
+    - pluggero.golang
