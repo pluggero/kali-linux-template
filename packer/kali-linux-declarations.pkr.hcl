@@ -41,7 +41,6 @@ local "debian_boot_command_x86_64" {
 
 locals {
     vbox_output_name = "${local.vm_name}-virtualbox-${formatdate("YYYYMMDD", timestamp())}-x86_64"
-    vbox_post_shared_folder_path_full = "${ var.HOME }/${ var.vbox_post_shared_folder_path }"
 }
 
 ##################################################################################
@@ -178,24 +177,6 @@ variable "vbox_post_accelerate_3d" {
 
 variable "vbox_post_clipboard_mode" {
   description = "The clipboard mode to use after the VM has been created"
-  type = string
-  default = ""
-}
-
-variable "vbox_post_shared_folder_name" {
-  description = "The name of the shared folder to create after the VM has been created"
-  type = string
-  default = ""
-}
-
-variable "vbox_post_shared_folder_path" {
-  description = "The path of the shared folder to create after the VM has been created"
-  type = string
-  default = ""
-}
-
-variable "vbox_post_shared_folder_mount_point" {
-  description = "The mount point of the shared folder to create after the VM has been created"
   type = string
   default = ""
 }

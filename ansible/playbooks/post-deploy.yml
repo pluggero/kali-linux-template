@@ -1,0 +1,18 @@
+---
+- name: Kali post-deployment
+  hosts: kali
+  become_method: sudo
+
+  vars:
+    vm_share_helper_sync_folders:
+      - vbox_share_name: "shared"
+        unison_name: "shared"
+        host: "/mnt/shared"
+        vm: "{{ ansible_env.HOME }}/documents/shared"
+        sync_interval: "59min"
+    vm_share_helper_burp_zip_helper:
+      script_path: "{{ ansible_env.HOME }}/zip_burp_files.sh"
+      sync_interval: "45min"
+
+  roles:
+    - pluggero.vm_share_helper
