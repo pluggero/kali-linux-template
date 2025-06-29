@@ -30,6 +30,3 @@ vbox_post_graphics                  = "vmsvga"
 vbox_post_vram                      = 256
 vbox_post_accelerate_3d             = "off"
 vbox_post_clipboard_mode            = "bidirectional"
-vbox_post_shared_folder_name        = "linux_vm"
-vbox_post_shared_folder_path        = "documents/shared/linux_vm"
-vbox_post_shared_folder_mount_point = "/mnt/shared"

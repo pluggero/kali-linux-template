@@ -34,7 +34,6 @@ source "virtualbox-iso" "kali-linux" {
     ["modifyvm", "{{.Name}}", "--accelerate-3d", var.vbox_post_accelerate_3d],
     ["modifyvm", "{{.Name}}", "--clipboard-mode", var.vbox_post_clipboard_mode],
     ["modifyvm", "{{.Name}}", "--nic1", "bridged", "--bridgeadapter1", var.vbox_post_bridged_adapter],
-    ["sharedfolder", "add", "{{.Name}}", "--name", var.vbox_post_shared_folder_name, "--hostpath", local.vbox_post_shared_folder_path_full, "--auto-mount-point=${var.vbox_post_shared_folder_mount_point}"]
   ]
 }
 
