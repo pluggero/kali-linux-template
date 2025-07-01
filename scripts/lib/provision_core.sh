@@ -1,8 +1,15 @@
 #!/bin/bash
 
 function run_packer_build() {
+  local var_file="$1"
+
   echo "Running Packer build..."
-  packer build -force -on-error=ask "$PACKER_DIR"
+
+  if [[ -n "$var_file" && -f "$var_file" ]]; then
+    packer build -var-file="$var_file" -force -on-error=ask "$PACKER_DIR"
+  else
+    packer build -force -on-error=ask "$PACKER_DIR"
+  fi
   return $?
 }
 
