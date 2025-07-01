@@ -14,6 +14,10 @@ local "http_directory" {
   expression = "${path.root}/http"
 }
 
+local "packer_output_path" {
+  expression = "${var.packer_output_dir}/${local.vbox_output_name}"
+}
+
 # Virtual Machine Settings
 
 locals { 
@@ -63,6 +67,58 @@ variable "http_interface" {
   default = ""
 }
 
+# Packer Settings
+
+variable "packer_input_dir" {
+  description = "The directory containing the input files for Packer"
+  type        = string
+  default     = ""
+}
+
+variable "packer_output_dir" {
+  description = "The directory where Packer will output the built images"
+  type        = string
+  default     = ""
+}
+
+# Ansible Settings
+
+variable "ansible_vault_password_file" {
+  description = "The Ansible vault password file"
+  type        = string
+  default     = ""
+}
+
+variable "ansible_collections_path" {
+  description = "The path to the Ansible collections"
+  type        = string
+  default     = ""
+}
+
+variable "ansible_roles_path" {
+  description = "The path to the Ansible roles"
+  type        = string
+  default     = ""
+}
+
+variable "ansible_requirements_file" {
+  description = "The Ansible requirements file"
+  type        = string
+  default     = ""
+}
+
+variable "ansible_playbook_init" {
+  description = "The initial Ansible playbook"
+  type        = string
+  default     = ""
+}
+
+variable "ansible_playbook_provision" {
+  description = "The main Ansible playbook"
+  type        = string
+  default     = ""
+}
+
 # Virtual Machine Settings
 variable "vm_guest_os_version" {
   description = "Version of guest os to install"
@@ -92,7 +148,6 @@ variable "vm_root_shutdown_command" {
   default = ""
 }
 
-# This has to be at least 16000 MB for the Kali installation to succeed
 variable "vm_disk_size" {
   description = "The size of the disk to create in MB"
   type = number

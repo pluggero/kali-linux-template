@@ -5,7 +5,7 @@ source "virtualbox-iso" "kali-linux" {
   vm_name              = "${local.vm_name}"
   iso_url              = local.kali_iso_url_x86_64
   iso_checksum         = local.kali_iso_checksum_x86_64
-  iso_target_path      = "${path.root}/inputs/${local.kali_iso_name_x86_64}"
+  iso_target_path      = "${path.root}/${var.packer_input_dir}/${local.kali_iso_name_x86_64}"
   http_directory       = local.http_directory
   http_interface       = var.http_interface
   shutdown_command     = local.vm_nonroot_shutdown_command
@@ -22,7 +22,7 @@ source "virtualbox-iso" "kali-linux" {
   hard_drive_interface = "sata"
   iso_interface        = "sata"
   format               = var.vbox_output_format
-  output_directory     = "${path.root}/outputs/${local.vbox_output_name}"
+  output_directory     = "${path.root}/${local.packer_output_path}"
   guest_additions_mode = var.vbox_guest_additions
   vboxmanage           = [["modifyvm", "{{.Name}}", "--nat-localhostreachable1", "on"]]
   vboxmanage_post      = [
@@ -54,18 +54,18 @@ build {
   }
 
   provisioner "ansible" {
-    galaxy_file          = "${path.root}/../ansible/requirements.yml"
+    galaxy_file          = "${path.root}/${var.ansible_requirements_file}"
     galaxy_force_install = true
-    collections_path     = "${path.root}/../ansible/collections"
-    roles_path           = "${path.root}/../ansible/roles"
-    playbook_file        = "${path.root}/../ansible/playbooks/provision-init.yml"
+    collections_path     = "${path.root}/${var.ansible_collections_path}"
+    roles_path           = "${path.root}/${var.ansible_roles_path}"
+    playbook_file        = "${path.root}/${var.ansible_playbook_init}"
     user                 = "${var.vm_ssh_username}"
     ansible_env_vars = [ 
       # To enable piplining, you have to edit sudoers file
       # See:https://docs.ansible.com/ansible/latest/reference_appendices/config.html#ansible-pipelining
       # "ANSIBLE_PIPELINING=true",
-      "ANSIBLE_ROLES_PATH=${path.root}/../ansible/roles",
-      "ANSIBLE_VAULT_PASSWORD_FILE=${path.root}/../ansible/inventory/group_vars/all/.vault_pass",
+      "ANSIBLE_ROLES_PATH=${path.root}/${var.ansible_roles_path}",
+      "ANSIBLE_VAULT_PASSWORD_FILE=${path.root}/${var.ansible_vault_password_file}",
       "ANSIBLE_FORCE_COLOR=true",
       "ANSIBLE_HOST_KEY_CHECKING=false",
     ]
@@ -76,16 +76,16 @@ build {
   }
 
   provisioner "ansible" {
-    collections_path     = "${path.root}/../ansible/collections"
-    roles_path           = "${path.root}/../ansible/roles"
-    playbook_file        = "${path.root}/../ansible/playbooks/provision.yml"
+    collections_path     = "${path.root}/${var.ansible_collections_path}"
+    roles_path           = "${path.root}/${var.ansible_roles_path}"
+    playbook_file        = "${path.root}/${var.ansible_playbook_provision}"
     user                 = "${var.vm_ssh_username}"
     ansible_env_vars = [ 
       # To enable piplining, you have to edit sudoers file
       # See:https://docs.ansible.com/ansible/latest/reference_appendices/config.html#ansible-pipelining
       # "ANSIBLE_PIPELINING=true",
-      "ANSIBLE_ROLES_PATH=${path.root}/../ansible/roles",
-      "ANSIBLE_VAULT_PASSWORD_FILE=${path.root}/../ansible/inventory/group_vars/all/.vault_pass",
+      "ANSIBLE_ROLES_PATH=${path.root}/${var.ansible_roles_path}",
+      "ANSIBLE_VAULT_PASSWORD_FILE=${path.root}/${var.ansible_vault_password_file}",
       "ANSIBLE_FORCE_COLOR=true",
       "ANSIBLE_HOST_KEY_CHECKING=false",
     ]
@@ -103,14 +103,14 @@ build {
   post-processors {
     post-processor "artifice" {
       files = [
-        "${path.root}/outputs/${local.vbox_output_name}/${local.vm_name}-disk001.vmdk",
-        "${path.root}/outputs/${local.vbox_output_name}/${local.vm_name}.ovf"
+        "${path.root}/${local.packer_output_path}/${local.vm_name}-disk001.vmdk",
+        "${path.root}/${local.packer_output_path}/${local.vm_name}.ovf"
       ]
     }
     post-processor "vagrant" {
       keep_input_artifact = true
       provider_override   = "virtualbox"
-      output = "${path.root}/outputs/${local.vbox_output_name}/${local.vm_name}.box"
+      output = "${path.root}/${local.packer_output_path}/${local.vm_name}.box"
     }
   }
 
