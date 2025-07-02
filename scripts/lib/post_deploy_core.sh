@@ -80,3 +80,21 @@ function add_shared_folder() {
 
   VBoxManage sharedfolder add "$vm" --name "$name" --hostpath "$path" --auto-mount-point="$mount"
 }
+
+function setup_all_shared_folders() {
+  local num_folders=${#SHARED_FOLDER_NAMES[@]}
+
+  for ((i = 0; i < num_folders; i++)); do
+    local name="${SHARED_FOLDER_NAMES[$i]}"
+    local mount="${SHARED_FOLDER_MOUNT_POINTS[$i]}"
+    local root="${SHARED_FOLDER_SEARCH_ROOTS[$i]}"
+    local depth="${SHARED_FOLDER_SEARCH_DEPTHS[$i]}"
+
+    selected=$(find "$root" -mindepth 1 -maxdepth "$depth" -type d | fzf --prompt="Select folder for '$name': ")
+    if [[ -z "$selected" ]]; then
+      echo "No folder selected for '$name'." >&2
+      exit 1
+    fi
+    add_shared_folder "$new_vm" "$name" "$selected" "$mount"
+  done
+}

@@ -18,11 +18,7 @@ shutdown_vm_if_running "$current_vm"
 # Rename
 new_vm=$(ask_rename_vm "$current_vm")
 
-# Select and add shared folder
-selected_folder=$(find "$HOME" -mindepth 1 -maxdepth 3 -type d | fzf --prompt="Select shared folder: ")
-[[ -z "$selected_folder" ]] && echo "No folder selected." && exit 1
-
-add_shared_folder "$new_vm" "$SHARED_FOLDER_NAME" "$selected_folder" "$SHARED_FOLDER_MOUNT_POINT"
+setup_all_shared_folders
 
 VBoxManage startvm "$new_vm" --type headless
 echo "Waiting for VM '$new_vm' to acquire an IP address..."
