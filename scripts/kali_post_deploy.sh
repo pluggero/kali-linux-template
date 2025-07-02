@@ -4,9 +4,14 @@ set -euo pipefail
 
 cd "$(dirname "$0")"/..
 
-source ./scripts/config.sh
 source ./scripts/lib/shared.sh
 source ./scripts/lib/post_deploy_core.sh
+
+source ./scripts/config.sh
+# Optional override
+if [[ -n "${CONFIG_OVERRIDE:-}" && -f "$CONFIG_OVERRIDE" ]]; then
+  source "$CONFIG_OVERRIDE"
+fi
 
 assert_dependencies
 
