@@ -13,6 +13,7 @@
     - ../vars/golang.yml
     - ../vars/i3wm.yml
     - ../vars/tmux.yml
+    - ../vars/fish.yml
 
   vars:
     virtualbox_guest_reboot: false
