@@ -11,6 +11,7 @@ common_pkgs:
       - metasploit-framework
       - nmap
       - openvpn
+      - openconnect
       - pipx
       - pulsemixer
       - python3-venv
