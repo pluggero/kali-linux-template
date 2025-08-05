@@ -19,8 +19,15 @@ function get_latest_output_dir() {
 
 function tag_output_with_commit() {
   local output_dir="$1"
+  local git_dir="."
   local commit_hash
-  commit_hash=$(git rev-parse HEAD)
+  
+  # If we're in a submodule, find the root repository
+  while [[ -f "$git_dir/.git" ]]; do
+    git_dir="$git_dir/.."
+  done
+  
+  commit_hash=$(git -C "$git_dir" rev-parse HEAD)
   echo "$commit_hash" > "$output_dir/version.txt"
   echo "Written commit $commit_hash to $output_dir/version.txt"
 }
