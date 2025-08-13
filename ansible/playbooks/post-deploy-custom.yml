@@ -1,0 +1,8 @@
+---
+- name: Kali post-deployment custom
+  hosts: kali
+  become_method: sudo
+
+  vars:
+
+  roles:
