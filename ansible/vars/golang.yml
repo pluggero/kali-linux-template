@@ -21,3 +21,5 @@ golang_tools:
     version: "v0.4.1"
   - name: "github.com/bitquark/shortscan/cmd/shortscan"
     version: "v0.9.2"
+  - name: "github.com/assetnote/kiterunner/cmd/kiterunner"
+    version: "v1.0.2"
