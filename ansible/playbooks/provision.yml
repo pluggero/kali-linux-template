@@ -14,6 +14,7 @@
     - ../vars/i3wm.yml
     - ../vars/tmux.yml
     - ../vars/fish.yml
+    - ../vars/tigervnc.yml
 
   vars:
     virtualbox_guest_reboot: false
@@ -34,3 +35,4 @@
     - pluggero.rofi
     - pluggero.burpsuite
     - pluggero.golang
+    - pluggero.tigervnc
