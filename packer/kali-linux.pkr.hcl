@@ -54,8 +54,6 @@ build {
   }
 
   provisioner "ansible" {
-    galaxy_file          = "${path.root}/${var.ansible_requirements_file}"
-    galaxy_force_install = true
     collections_path     = "${path.root}/${var.ansible_collections_path}"
     roles_path           = "${path.root}/${var.ansible_roles_path}"
     playbook_file        = "${path.root}/${var.ansible_playbook_init}"
