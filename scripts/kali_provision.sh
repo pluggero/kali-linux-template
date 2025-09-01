@@ -12,6 +12,7 @@ fi
 
 assert_dependencies
 clean_roles "$ROLES_DIR"
+install_roles "$ROLES_DIR"
 
 VM_PASSWORD=$(extract_vm_password "$VAULT_FILE" "$VAULT_PASS_FILE")
 export VM_SSH_PASSWORD="$VM_PASSWORD"
