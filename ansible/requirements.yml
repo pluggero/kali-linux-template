@@ -27,7 +27,7 @@ roles:
   - src: pluggero.vm_share_helper
     version: 1.0.2
   - src: pluggero.golang
-    version: 1.3.0
+    version: 1.4.0
   - src: pluggero.user_setup
     version: 1.3.0
   - src: pluggero.bibata_cursor
