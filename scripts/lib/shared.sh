@@ -22,6 +22,18 @@ function clean_roles() {
   fi
 }
 
+function install_roles() {
+  local roles_dir="$1"
+  for req_file in "${REQUIREMENTS_FILES[@]}"; do
+    if [ -f "$req_file" ]; then
+      echo "Installing roles from $req_file..."
+      ansible-galaxy install -r "$req_file" --roles-path "$roles_dir" --force
+    else
+      echo "Warning: Requirements file $req_file not found, skipping..."
+    fi
+  done
+}
+
 function extract_vm_password() {
   local vault_file="$1"
   local vault_pass_file="$2"
