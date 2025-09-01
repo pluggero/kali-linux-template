@@ -36,7 +36,7 @@ read -rp "Press Enter to continue..."
 wait_for_ssh "kali.local"
 
 clean_roles "$ROLES_DIR"
-ansible-galaxy install -r "$ANSIBLE_DIR/requirements.yml" --roles-path "$ROLES_DIR" --force
+install_roles "$ROLES_DIR"
 
 VM_PASSWORD=$(extract_vm_password "$VAULT_FILE" "$VAULT_PASS_FILE")
 

@@ -14,6 +14,10 @@ OUTPUT_DIR="$PACKER_DIR/outputs"
 ANSIBLE_CONFIG_FILE="$ANSIBLE_DIR/ansible.cfg"
 POST_DEPLOY_PLAYBOOK="$ANSIBLE_DIR/playbooks/post-deploy.yml"
 
+# === Requirements Files (multiple supported) ===
+# Define requirements files as an array
+REQUIREMENTS_FILES=("$ANSIBLE_DIR/requirements.yml")
+
 # === Shared Folder Configuration (multiple supported) ===
 # Define shared folder parameters as parallel arrays
 
