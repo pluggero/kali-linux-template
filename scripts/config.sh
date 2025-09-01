@@ -1,14 +1,16 @@
 #!/bin/bash
 
-# === Vault ===
-VAULT_FILE="ansible/inventory/group_vars/all/vault.yml"
-VAULT_PASS_FILE="ansible/inventory/group_vars/all/.vault_pass"
-
 # === Directories ===
-ROLES_DIR="ansible/roles"
-PACKER_DIR="packer"
 ANSIBLE_DIR="ansible"
+PACKER_DIR="packer"
+ROLES_DIR="$ANSIBLE_DIR/roles"
 OUTPUT_DIR="$PACKER_DIR/outputs"
+
+# === Vault ===
+VAULT_FILE="$ANSIBLE_DIR/inventory/group_vars/all/vault.yml"
+VAULT_PASS_FILE="$ANSIBLE_DIR/inventory/group_vars/all/.vault_pass"
+
+
 
 # === Ansible ===
 ANSIBLE_CONFIG_FILE="$ANSIBLE_DIR/ansible.cfg"
