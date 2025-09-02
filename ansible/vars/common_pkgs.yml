@@ -31,8 +31,10 @@ common_pkgs:
       - wireshark
       - xxd
       - usbutils
+      - libimage-exiftool-perl
       # mobile pentesting
       - adb
+      - sqlitebrowser
     remove: []
     remove_regex: []
     remove_modified_configs: false
