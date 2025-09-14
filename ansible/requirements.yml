@@ -9,7 +9,7 @@ roles:
   - src: pluggero.i3wm
     version: 1.3.0
   - src: pluggero.fish
-    version: 2.1.0
+    version: 2.2.0
   - src: pluggero.docker
     version: 1.0.0
   - src: pluggero.tmux
