@@ -1,1 +1,329 @@
-i3wm_terminal: "alacritty"
+# =============================================================================
+# General Settings
+# =============================================================================
+i3wm_modifier: "Mod4"
+
+# Media control settings
+i3wm_enable_media_keys: true
+i3wm_volume_step: 5
+i3wm_brightness_step: 5
+i3wm_disable_beep: true
+
+# =============================================================================
+# Visual & Layout Settings
+# =============================================================================
+i3wm_font:
+  size: 10
+  family: "Hack Nerd Font"
+i3wm_focus_follows_mouse: true
+
+# Wallpaper and Screensaver settings
+i3wm_wallpaper: true
+i3wm_wallpaper_image_local: "{{ playbook_dir }}/../files/wallpaper.jpg"
+i3wm_wallpaper_image: "{{ i3wm_config_dir }}/wallpaper.jpg"
+i3wm_screensaver: false
+i3wm_screensaver_time: "90"
+i3wm_xautolock: true
+i3wm_lockscreen_image_local: "{{ playbook_dir }}/../files/lockscreen.png"
+i3wm_lockscreen_image: "{{ i3wm_config_dir }}/lockscreen.jpg"
+
+# Layout Settings
+i3wm_gaps:
+  inner: 6
+  outer: 0
+i3wm_borders:
+  default: normal
+  default_floating: normal
+  width: 2
+  hide_edge_borders: none
+
+# =============================================================================
+# Color Themes
+# =============================================================================
+# Window Colors
+i3wm_colors:
+  focused:
+    border: "#83a598"
+    background: "#282828"
+    text: "#d5c4a1"
+    indicator: "#b8bb26"
+    child_border: "#83a598"
+  focused_inactive:
+    border: "#665c54"
+    background: "#282828"
+    text: "#d5c4a1"
+    indicator: "#b8bb26"
+    child_border: "#665c54"
+  unfocused:
+    border: "#665c54"
+    background: "#282828"
+    text: "#d5c4a1"
+    indicator: "#b8bb26"
+    child_border: "#665c54"
+  urgent:
+    border: "#fb4934"
+    background: "#282828"
+    text: "#d5c4a1"
+    indicator: "#b8bb26"
+    child_border: "#fb4934"
+  placeholder:
+    border: "#665c54"
+    background: "#282828"
+    text: "#d5c4a1"
+    indicator: "#b8bb26"
+    child_border: "#665c54"
+  background: "#282828"
+
+# Bar Colors
+i3wm_bar_colors:
+  background: "#282828"
+  statusline: "#d5c4a1"
+  separator: "#665c54"
+  focused_workspace:
+    border: "#83a598"
+    background: "#282828"
+    text: "#d5c4a1"
+  active_workspace:
+    border: "#282828"
+    background: "#282828"
+    text: "#83a598"
+  inactive_workspace:
+    border: "#282828"
+    background: "#282828"
+    text: "#d5c4a1"
+  urgent_workspace:
+    border: "#fb4934"
+    background: "#282828"
+    text: "#d5c4a1"
+  binding_mode:
+    border: "#282828"
+    background: "#fb4934"
+    text: "#d5c4a1"
+
+# =============================================================================
+# Keybinding Configuration
+# =============================================================================
+# Exec keybindings for launching applications
+i3wm_keybindings_exec:
+  - key: $mod+Return
+    exec: "alacritty"
+  - key: $mod+Shift+Return
+    exec: "alacritty -e tmux"
+  - key: $mod+d
+    exec: "rofi -show drun"
+  - key: $mod+Shift+s
+    exec: "alacritty -e pulsemixer"
+  - key: $mod+i
+    exec: "alacritty -e btop"
+  - key: $mod+Shift+x
+    exec: "i3lock --image={{ i3wm_lockscreen_image }} --color 000000"
+  - key: $mod+c
+    exec: "flameshot gui"
+  - key: $mod+b
+    exec: "firefox"
+
+# Focus keybindings for window navigation
+i3wm_keybindings_focus:
+  - key: $mod+Up
+    action: "focus up"
+  - key: $mod+k
+    action: "focus up"
+  - key: $mod+Down
+    action: "focus down"
+  - key: $mod+j
+    action: "focus down"
+  - key: $mod+Left
+    action: "focus left"
+  - key: $mod+h
+    action: "focus left"
+  - key: $mod+Right
+    action: "focus right"
+  - key: $mod+l
+    action: "focus right"
+  - key: $mod+a
+    action: "focus parent"
+  - key: $mod+x
+    action: "focus child"
+  - key: $mod+space
+    action: "floating toggle"
+  - key: $mod+Shift+space
+    action: "focus mode_toggle"
+  - key: $mod+f
+    action: "fullscreen"
+
+# Move keybindings for moving containers
+i3wm_keybindings_move:
+  - key: $mod+Shift+Up
+    action: "move up"
+  - key: $mod+Shift+k
+    action: "move up"
+  - key: $mod+Shift+Down
+    action: "move down"
+  - key: $mod+Shift+j
+    action: "move down"
+  - key: $mod+Shift+Left
+    action: "move left"
+  - key: $mod+Shift+h
+    action: "move left"
+  - key: $mod+Shift+Right
+    action: "move right"
+  - key: $mod+Shift+l
+    action: "move right"
+  - key: $mod+Shift+comma
+    action: "move workspace to output left"
+  - key: $mod+Shift+period
+    action: "move workspace to output right"
+
+# Layout keybindings for changing layouts
+i3wm_keybindings_layout:
+  - key: $mod+m
+    action: "split h"
+  - key: $mod+n
+    action: "split v"
+  - key: $mod+s
+    action: "layout stacking"
+  - key: $mod+t
+    action: "layout tabbed"
+  - key: $mod+w
+    action: "layout toggle split"
+
+# System keybindings for i3 control
+i3wm_keybindings_system:
+  - key: $mod+Shift+q
+    action: "kill"
+  - key: $mod+Shift+r
+    action: "restart"
+  - key: $mod+Shift+e
+    action: 'exec --no-startup-id i3-nagbar -f "pango:{{ i3wm_font.family }} {{ i3wm_font.size }}" -m "Exit i3? This will end your current X session." -B "Exit now" "i3-msg exit" -B "Suspend" "systemctl suspend && pkill i3-nagbar" -B "Reboot" "systemctl reboot" -B "Power off" "systemctl poweroff"'
+
+# Mode keybindings (resize mode)
+i3wm_keybindings_resize:
+  enter_key: $mod+r
+  bindings:
+    - key: Up
+      action: "resize shrink height 10 px or 10 ppt"
+    - key: k
+      action: "resize grow height 10 px or 10 ppt"
+    - key: Down
+      action: "resize grow height 10 px or 10 ppt"
+    - key: j
+      action: "resize shrink width 10 px or 10 ppt"
+    - key: Left
+      action: "resize shrink width 10 px or 10 ppt"
+    - key: h
+      action: "resize grow width 10 px or 10 ppt"
+    - key: Right
+      action: "resize grow width 10 px or 10 ppt"
+    - key: l
+      action: "resize shrink height 10 px or 10 ppt"
+    - key: Escape
+      action: "mode default"
+    - key: Return
+      action: "mode default"
+
+# Quick resize keybindings (outside resize mode)
+i3wm_keybindings_quick_resize:
+  - key: $mod+Control+Down
+    action: "resize grow height 10"
+  - key: $mod+Control+Left
+    action: "resize shrink width 10"
+  - key: $mod+Control+Right
+    action: "resize grow width 10"
+  - key: $mod+Control+Up
+    action: "resize shrink height 10"
+
+# Media/hardware keybindings
+i3wm_keybindings_media:
+  volume_down:
+    key: XF86AudioLowerVolume
+    action: "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -{{ i3wm_volume_step }}%"
+  volume_up:
+    key: XF86AudioRaiseVolume
+    action: "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +{{ i3wm_volume_step }}%"
+  volume_mute:
+    key: XF86AudioMute
+    action: "exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle"
+  mic_mute:
+    key: XF86AudioMicMute
+    action: "exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+  brightness_down:
+    key: XF86MonBrightnessDown
+    action: "exec --no-startup-id brightnessctl set {{ i3wm_brightness_step }}%-"
+  brightness_up:
+    key: XF86MonBrightnessUp
+    action: "exec --no-startup-id brightnessctl set +{{ i3wm_brightness_step }}%"
+
+# =============================================================================
+# Workspace Configuration
+# =============================================================================
+i3wm_workspaces:
+  - workspace:
+    id: 1
+    name: "1"
+  - workspace:
+    id: 2
+    name: "2"
+  - workspace:
+    id: 3
+    name: "3"
+  - workspace:
+    id: 4
+    name: "4"
+  - workspace:
+    id: 5
+    name: "5"
+  - workspace:
+    id: 6
+    name: "6"
+  - workspace:
+    id: 7
+    name: "7"
+  - workspace:
+    id: 8
+    name: "8"
+  - workspace:
+    id: 9
+    name: "9"
+  - workspace:
+    id: 0
+    name: "10"
+
+# =============================================================================
+# Monitor & Application Configuration
+# =============================================================================
+i3wm_monitors: []
+# see: xrandr
+#  - monitor:
+#    id: 1
+#    output: "VGA-1"
+#    mode: "1920x1080"
+#    pos: "0x0"
+#    rotate: "normal"
+#    workspaces: [1,2,3,4,5,6,7,8,9,0] # bind workspace to a specific monitor
+
+i3wm_applications: []
+#  - application:
+#    class: "Firefox"
+#    name: "firefox"
+#    workspace: 1 # bind application to a specific workspace
+#    on_startup: false
+
+i3wm_run_on_startup: []
+#  - foo
+#  - bar
+
+# Exec Always Commands (executed on every i3 reload/restart)
+i3wm_exec_always: []
+#  - "i3-msg workspace 1"
+#  - "setxkbmap -model pc104 -layout us -variant intl"
+
+# =============================================================================
+# i3blocks Configuration
+# =============================================================================
+# i3blocks Theme Colors
+i3wm_i3blocks_colors:
+  primary_bg: "#3a4553"
+  secondary_bg: "#282828"
+  accent_bg: "#2e3440"
+  text_color: "#ebdbb2"
+  separator_color: "#2e3440"
