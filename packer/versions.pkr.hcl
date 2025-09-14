@@ -1,5 +1,5 @@
 packer {
-  required_version = "= 1.14.1"
+  required_version = "= 1.14.2"
   required_plugins {
     ansible = {
       version = "= 1.1.4"
