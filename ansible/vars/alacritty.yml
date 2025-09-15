@@ -1,1 +1,1 @@
-alacritty_shell: "/usr/bin/fish"
+alacritty_shell: "fish"
