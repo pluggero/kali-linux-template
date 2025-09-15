@@ -23,10 +23,10 @@
     - pluggero.common_pkgs
     - pluggero.bibata_cursor
     - pluggero.rustup
-    - pluggero.alacritty
-    - pluggero.yazi
     - pluggero.fish
+    - pluggero.alacritty
     - pluggero.tmux
+    - pluggero.yazi
     - pluggero.i3wm
     - pluggero.docker
     - pluggero.virtualbox_guest
