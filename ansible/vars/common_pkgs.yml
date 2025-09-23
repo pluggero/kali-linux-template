@@ -3,15 +3,19 @@ common_pkgs:
     install:
       - 7zip
       - bc
+      - enum4linux
       - jq
       - kali-themes
       - keepassxc
+      - libimage-exiftool-perl
       - libreoffice
       - lightdm
+      - maven
       - metasploit-framework
+      - netexec
       - nmap
-      - openvpn
       - openconnect
+      - openvpn
       - pipx
       - pulsemixer
       - python3-venv
@@ -20,21 +24,23 @@ common_pkgs:
       - ripgrep
       - rsync
       - seclists
+      - smbclient
+      - usbutils
       - wafw00f
       - wireplumber
+      - wireshark
       - xclip
+      - xxd
       - zip
       - zoxide
-      - enum4linux
-      - smbclient
-      - maven
-      - wireshark
-      - xxd
-      - usbutils
-      - libimage-exiftool-perl
       # mobile pentesting
+      - wireless-tools
       - adb
       - sqlitebrowser
+      - qrencode
+      # embedded pentesting
+      - arping
+      - macchanger
     remove: []
     remove_regex: []
     remove_modified_configs: false
