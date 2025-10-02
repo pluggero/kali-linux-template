@@ -13,6 +13,8 @@ common_pkgs:
       - maven
       - metasploit-framework
       - netexec
+      - network-manager-applet
+      - network-manager-openconnect-gnome
       - nmap
       - openconnect
       - openvpn
@@ -34,10 +36,13 @@ common_pkgs:
       - zip
       - zoxide
       # mobile pentesting
-      - wireless-tools
       - adb
-      - sqlitebrowser
+      - libimobiledevice-utils
+      - libusbmuxd-tools
       - qrencode
+      - sqlitebrowser
+      - usbmuxd
+      - wireless-tools
       # embedded pentesting
       - arping
       - macchanger
