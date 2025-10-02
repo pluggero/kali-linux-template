@@ -83,7 +83,7 @@
   ],
   "customDatasources": {
     "kali-linux-installer": {
-      "defaultRegistryUrlTemplate": "https://cdimage.kali.org/current/",
+      "defaultRegistryUrlTemplate": "https://kali.download/base-images/current/",
       "format": "html"
     }
   }
