@@ -5,6 +5,20 @@ function run_packer_build() {
 
   echo "Running Packer build..."
 
+  # Set custom TMPDIR if PACKER_TMPDIR is defined
+  if [[ -n "${PACKER_TMPDIR:-}" ]]; then
+    # Check if custom tmp directory exists
+    if [[ ! -d "$PACKER_TMPDIR" ]]; then
+      echo "Error: Custom tmp directory does not exist: $PACKER_TMPDIR"
+      echo "Please create it manually before running the build"
+      return 1
+    fi
+
+    # Export TMPDIR for Packer to use
+    export TMPDIR="$PACKER_TMPDIR"
+    echo "Using TMPDIR: $TMPDIR"
+  fi
+
   if [[ -n "$var_file" && -f "$var_file" ]]; then
     packer build -var-file="$var_file" -force -on-error=ask "$PACKER_DIR"
   else
