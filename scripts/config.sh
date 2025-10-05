@@ -6,6 +6,9 @@ PACKER_DIR="packer"
 ROLES_DIR="$ANSIBLE_DIR/roles"
 OUTPUT_DIR="$PACKER_DIR/outputs"
 
+# === Packer ===
+PACKER_TMPDIR="/var/tmp"
+
 # === Vault ===
 VAULT_FILE="$ANSIBLE_DIR/inventory/group_vars/all/vault.yml"
 VAULT_PASS_FILE="$ANSIBLE_DIR/inventory/group_vars/all/.vault_pass"
