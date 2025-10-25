@@ -15,25 +15,27 @@
     - ../vars/tmux.yml
     - ../vars/fish.yml
     - ../vars/tigervnc.yml
+    - ../vars/python.yml
 
   vars:
     virtualbox_guest_reboot: false
 
   roles:
-    - pluggero.common_pkgs
-    - pluggero.bibata_cursor
-    - pluggero.rustup
-    - pluggero.fish
     - pluggero.alacritty
-    - pluggero.tmux
-    - pluggero.yazi
-    - pluggero.i3wm
-    - pluggero.docker
-    - pluggero.virtualbox_guest
-    - pluggero.neovim
-    - pluggero.firefox
-    - pluggero.rofi
+    - pluggero.bibata_cursor
+    - pluggero.common_pkgs
     - pluggero.burpsuite
+    - pluggero.docker
+    - pluggero.firefox
+    - pluggero.fish
     - pluggero.golang
+    - pluggero.i3wm
+    - pluggero.neovim
+    - pluggero.python
+    - pluggero.rofi
+    - pluggero.rustup
     - pluggero.tigervnc
+    - pluggero.tmux
+    - pluggero.virtualbox_guest
     - pluggero.wireshark
+    - pluggero.yazi

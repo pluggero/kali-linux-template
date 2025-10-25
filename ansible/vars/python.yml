@@ -1,0 +1,18 @@
+---
+python_tools:
+  - package: "objection"
+    version: "1.11.0"
+    venv_name: "mobile-security"
+    executables: ["objection"]
+  - package: "frida-tools"
+    version: "13.7.1"
+    venv_name: "mobile-security"
+    executables: ["frida-ps", "frida-trace"]
+  - package: "frida"
+    version: "16.3.3"
+    venv_name: "mobile-security"
+    executables: ["frida"]
+  - package: "setuptools"
+    version: "80.8.0"
+    venv_name: "mobile-security"
+    executables: []
