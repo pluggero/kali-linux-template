@@ -20,7 +20,6 @@ common_pkgs:
       - openvpn
       - pipx
       - pulsemixer
-      - python3-venv
       - qt5ct
       - qt6ct
       - ripgrep
