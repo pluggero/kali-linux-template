@@ -48,7 +48,7 @@ ansible_ssh_private_key_file: "<PATH_TO_PRIVATE_KEY>"
 user_setup_password: "<USER_PASSWORD>"
 user_setup_password_salt: "<PASSWORD_SALT>"
 user_setup_ssh_public_keys:
-    - "<YOUR_SSH_PUBLIC_KEY>"
+    - key: "<YOUR_SSH_PUBLIC_KEY>"
 ```
 
 - **NOTE**: You can use the following command to generate a random password salt (it must be 16 characters long and should not include special characters):
