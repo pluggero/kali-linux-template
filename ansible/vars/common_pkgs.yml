@@ -42,9 +42,11 @@ common_pkgs:
       - sqlitebrowser
       - usbmuxd
       - wireless-tools
-      # embedded pentesting
+      # iot/ot pentesting
       - arping
       - macchanger
+      - isc-dhcp-client
+      - hping3
     remove: []
     remove_regex: []
     remove_modified_configs: false
