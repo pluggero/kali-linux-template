@@ -23,7 +23,7 @@ roles:
   - src: pluggero.rofi
     version: 1.2.0
   - src: pluggero.burpsuite
-    version: 1.18.0
+    version: 1.19.0
   - src: pluggero.vm_share_helper
     version: 1.0.2
   - src: pluggero.golang
