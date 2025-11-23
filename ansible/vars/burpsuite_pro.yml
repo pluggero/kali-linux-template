@@ -1,3 +1,4 @@
+---
 burpsuite_edition: "pro"
 # Do to the fact that the below does not work, you have to put the merge in a pre_task until it is fixed in the burpsuite role.
 # burpsuite_extensions_bapp: "{{ burpsuite_extensions_community + burpsuite_extensions_pro }}"

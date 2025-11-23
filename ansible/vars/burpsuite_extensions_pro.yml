@@ -1,3 +1,4 @@
+---
 burpsuite_extensions_pro:
   - name: "Error Message Checks"
     bapp_uuid: "4f01db4b668c4126a68e4673df796f0f"

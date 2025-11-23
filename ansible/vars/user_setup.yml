@@ -1,0 +1,36 @@
+---
+user_setup_users:
+  - name: "{{ ansible_user }}"
+    state: present
+    uid: 1000
+    shell: "/bin/bash"
+    create_home: true
+    groups: []
+    groups_append: true
+    password: "{{ user_setup_password | password_hash('sha512', user_setup_password_salt) }}"
+    sudo_access: true
+    sudo_nopasswd: false
+    env_var_setup: false
+    env_var_file: ".env_vars"
+    user_directories:
+      - name: ".local/share/archive"
+        env_var: "XDG_ARCHIVE_DIR"
+      - name: ".config"
+        env_var: "XDG_CONFIG_DIR"
+      - name: "desktop"
+        env_var: "XDG_DESKTOP_DIR"
+      - name: "documents"
+        env_var: "XDG_DOCUMENTS_DIR"
+      - name: "downloads"
+        env_var: "XDG_DOWNLOAD_DIR"
+      - name: "music"
+        env_var: "XDG_MUSIC_DIR"
+      - name: "pictures"
+        env_var: "XDG_PICTURES_DIR"
+      - name: "tools"
+        env_var: "XDG_TOOLS_DIR"
+      - name: "videos"
+        env_var: "XDG_VIDEOS_DIR"
+    ssh_directory: ".ssh"
+    ssh_authorized_keys_exclusive: true
+    ssh_authorized_keys: "{{ user_setup_ssh_public_keys | default([]) }}"

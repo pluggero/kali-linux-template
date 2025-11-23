@@ -1,3 +1,4 @@
+---
 firefox_profile_user_prefs:
   - name: "browser.aboutwelcome.enabled"
     value: "false"

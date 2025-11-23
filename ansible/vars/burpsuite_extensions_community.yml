@@ -1,3 +1,4 @@
+---
 burpsuite_extensions_community:
   - name: "ParamMiner"
     bapp_uuid: "17d2949a985c4b7ca092728dba871943"
