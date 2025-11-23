@@ -1,3 +1,4 @@
+---
 tmux_shell: "fish"
 tmux_plugins:
   - name: "vim-tmux-navigator"
