@@ -16,9 +16,7 @@
     - ../vars/fish.yml
     - ../vars/tigervnc.yml
     - ../vars/python.yml
-
-  vars:
-    virtualbox_guest_reboot: false
+    - ../vars/virtualbox_guest.yml
 
   roles:
     - pluggero.alacritty
