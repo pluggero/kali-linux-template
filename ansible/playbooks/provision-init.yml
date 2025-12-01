@@ -5,7 +5,9 @@
 
   vars_files:
     - ../inventory/group_vars/all/vault.yml
+    - ../vars/upgrade.yml
     - ../vars/user_setup.yml
 
   roles:
+    - pluggero.upgrade
     - pluggero.user_setup
