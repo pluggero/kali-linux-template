@@ -21,6 +21,7 @@ source "virtualbox-iso" "kali-linux" {
   headless             = var.vbox_vm_headless
   hard_drive_interface = "sata"
   iso_interface        = "sata"
+  firmware             = "efi"
   format               = var.vbox_output_format
   output_directory     = "${path.root}/${local.packer_output_path}"
   guest_additions_mode = var.vbox_guest_additions

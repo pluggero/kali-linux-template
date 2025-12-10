@@ -26,18 +26,21 @@ locals {
 } 
 
 # https://forums.virtualbox.org/viewtopic.php?t=110897
-# for uefi boot to work: "vga=788 noprompt fb=false quiet --<enter>"
+# UEFI boot command for GRUB EFI boot loader
 local "debian_boot_command_x86_64" {
   expression = [
-    "<wait><wait><wait><esc><wait><wait><wait>",
-    "/install.amd/vmlinuz ",
-    "initrd=/install.amd/initrd.gz ",
-    "auto=true ",
-    "hostname=kali ",
+    "e<wait>",
+    "<down><down><down><end>",
+    " --- ",
+    "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/${var.preseed_file} ",
+    "preseed/url/checksum=${var.preseed_checksum} ",
+    "locale=en_US ",
+    "keymap=us ",
+    "hostname=${var.vm_hostname} ",
     "domain='' ",
-    "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
-    "interface=auto ",
-    "vga=788 noprompt quiet --<enter>"
+    " --- ",
+    "<f10>"
+    
   ]
 }
 
@@ -65,6 +68,16 @@ variable "http_interface" {
   description = "The interface to use for the HTTP server"
   type = string
   default = ""
+}
+
+variable "preseed_file" {
+  type        = string
+  description = "Path to a preseed file"
+}
+
+variable "preseed_checksum" {
+  type        = string
+  description = "MD5SUM of the preseed file."
 }
 
 # Packer Settings
@@ -162,6 +175,11 @@ variable "vm_ssh_timeout" {
 variable "vm_ssh_port" {
   description = "The port to use for SSH"
   type = number
+}
+
+variable "vm_hostname" {
+  type        = string
+  description = "The hostname of the VM"
 }
 
 variable "vm_ssh_username" {
