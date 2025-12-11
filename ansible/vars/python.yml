@@ -2,17 +2,117 @@
 python_tools:
   - package: "objection"
     version: "1.11.0"
-    venv_name: "mobile-security"
+    venv_name: "frida"
     executables: ["objection"]
   - package: "frida-tools"
     version: "13.7.1"
-    venv_name: "mobile-security"
-    executables: ["frida-ps", "frida-trace"]
+    venv_name: "frida"
+    executables:
+      [
+        "frida",
+        "frida-apk",
+        "frida-compile",
+        "frida-create",
+        "frida-discover",
+        "frida-itrace",
+        "frida-join",
+        "frida-kill",
+        "frida-ls",
+        "frida-ls-devices",
+        "frida-pm",
+        "frida-ps",
+        "frida-pull",
+        "frida-push",
+        "frida-rm",
+        "frida-trace",
+      ]
   - package: "frida"
     version: "16.3.3"
-    venv_name: "mobile-security"
-    executables: ["frida"]
+    venv_name: "frida"
+    executables: []
   - package: "setuptools"
     version: "80.8.0"
-    venv_name: "mobile-security"
+    venv_name: "frida"
     executables: []
+  - package: "impacket"
+    version: "0.13.0"
+    venv_name: "impacket"
+    executables:
+      [
+        "addcomputer.py",
+        "atexec.py",
+        "attrib.py",
+        "badsuccessor.py",
+        "changepasswd.py",
+        "CheckLDAPStatus.py",
+        "dacledit.py",
+        "dcomexec.py",
+        "describeTicket.py",
+        "dpapi.py",
+        "DumpNTLMInfo.py",
+        "esentutl.py",
+        "exchanger.py",
+        "filetime.py",
+        "findDelegation.py",
+        "GetADComputers.py",
+        "GetADUsers.py",
+        "getArch.py",
+        "Get-GPPPassword.py",
+        "GetLAPSPassword.py",
+        "GetNPUsers.py",
+        "getPac.py",
+        "getST.py",
+        "getTGT.py",
+        "GetUserSPNs.py",
+        "goldenPac.py",
+        "karmaSMB.py",
+        "keylistattack.py",
+        "kintercept.py",
+        "ldapdomaindump",
+        "ldd2bloodhound",
+        "ldd2pretty",
+        "lookupsid.py",
+        "machine_role.py",
+        "mimikatz.py",
+        "mqtt_check.py",
+        "mssqlclient.py",
+        "mssqlinstance.py",
+        "net.py",
+        "netview.py",
+        "normalizer",
+        "ntfs-read.py",
+        "ntlmrelayx.py",
+        "owneredit.py",
+        "ping6.py",
+        "ping.py",
+        "psexec.py",
+        "raiseChild.py",
+        "rbcd.py",
+        "rdp_check.py",
+        "registry-read.py",
+        "reg.py",
+        "regsecrets.py",
+        "rpcdump.py",
+        "rpcmap.py",
+        "sambaPipe.py",
+        "samedit.py",
+        "samrdump.py",
+        "secretsdump.py",
+        "services.py",
+        "smbclient.py",
+        "smbexec.py",
+        "smbserver.py",
+        "sniffer.py",
+        "sniff.py",
+        "split.py",
+        "ticketConverter.py",
+        "ticketer.py",
+        "tstool.py",
+        "wmiexec.py",
+        "wmipersist.py",
+        "wmiquery.py",
+      ]
+  - package: "drozer"
+    version: "3.1.0"
+    venv_name: "drozer"
+    executables: ["drozer"]
