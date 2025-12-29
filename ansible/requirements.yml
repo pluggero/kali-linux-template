@@ -42,3 +42,7 @@ roles:
     version: 1.6.0
   - src: pluggero.upgrade
     version: 1.1.0
+  - src: pluggero.tool_installer
+    version: 1.0.0
+  - src: pluggero.git
+    version: 1.1.1

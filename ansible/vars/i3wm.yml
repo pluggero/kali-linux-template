@@ -112,6 +112,8 @@ i3wm_keybindings_exec:
     exec: "alacritty -e tmux"
   - key: $mod+d
     exec: "rofi -show drun"
+  - key: $mod+Shift+d
+    exec: "profi"
   - key: $mod+Shift+s
     exec: "alacritty -e pulsemixer"
   - key: $mod+i
