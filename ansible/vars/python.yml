@@ -2,10 +2,12 @@
 python_tools:
   - package: "objection"
     version: "1.11.0"
+    install_scope: "system"
     venv_name: "frida"
     executables: ["objection"]
   - package: "frida-tools"
     version: "13.7.1"
+    install_scope: "system"
     venv_name: "frida"
     executables:
       [
@@ -28,14 +30,17 @@ python_tools:
       ]
   - package: "frida"
     version: "16.3.3"
+    install_scope: "system"
     venv_name: "frida"
     executables: []
   - package: "setuptools"
     version: "80.8.0"
+    install_scope: "system"
     venv_name: "frida"
     executables: []
   - package: "impacket"
     version: "0.13.0"
+    install_scope: "system"
     venv_name: "impacket"
     executables:
       [
@@ -114,5 +119,6 @@ python_tools:
       ]
   - package: "drozer"
     version: "3.1.0"
+    install_scope: "system"
     venv_name: "drozer"
     executables: ["drozer"]
