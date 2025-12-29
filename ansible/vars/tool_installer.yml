@@ -1,0 +1,41 @@
+---
+tool_installer_tools:
+  - name: "jwt_tool"
+    url: "https://github.com/ticarpi/jwt_tool"
+    version: "v2.3.0"
+    install_scope: "system"
+    python_venv: true
+    pre_install_commands:
+      - "pip install -r requirements.txt"
+    install_commands: []
+    post_install_commands:
+      - "chmod +x jwt_tool.py"
+    executables:
+      - src: "jwt_tool.py"
+        name: "jwt_tool"
+        type: "python"
+    dependency_packages: {}
+    dependency_roles:
+      - pluggero.git
+      - pluggero.python
+  - name: "profi"
+    url: "https://github.com/pluggero/profi"
+    version: "main"
+    install_scope: "system"
+    python_venv: true
+    pre_install_commands:
+      - "pip install -r requirements.txt"
+    install_commands:
+      - "pip install ."
+    post_install_commands:
+      - "python3 install.py"
+    executables:
+      - src: "venv/bin/profi"
+        name: "profi"
+        type: "python"
+    dependency_packages:
+      Debian: ["php", "xclip"]
+    dependency_roles:
+      - pluggero.git
+      - pluggero.python
+      - pluggero.rofi
