@@ -1,1 +1,27 @@
 *venv
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+report.html
+junit.xml
+*.log
+
+# Terraform
+**/.terraform/
+**/.terraform.lock.hcl
+**/*.tfstate
+**/*.tfstate.*
+**/terraform.tfvars
+**/secrets.tfvars
+**/.terraform_vagrant_*/
+
+# Vagrant
+**/.vagrant/

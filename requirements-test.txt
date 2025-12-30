@@ -1,0 +1,16 @@
+# Testing dependencies for Kali Linux VM template
+# Install with: pip install -r requirements-test.txt
+
+# Core testing framework
+pytest>=7.4.0
+pytest-testinfra>=9.0.0
+
+# Test execution options
+pytest-xdist>=3.3.0        # Parallel test execution
+pytest-timeout>=2.1.0      # Test timeout support
+
+# Code coverage (optional)
+pytest-cov>=4.1.0
+
+# Better output formatting
+pytest-html>=3.2.0         # HTML test reports
