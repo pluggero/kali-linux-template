@@ -1,0 +1,21 @@
+# Production Environment Configuration
+# Copy this file to terraform.tfvars and customize as needed
+
+vm_name          = "kali-linux-prod"
+vm_version       = "2025.3"
+vm_build_date    = "20251021"  # Set to your build date, or leave box_file empty to auto-detect
+
+# Hardware Configuration
+cpus             = 3
+memory           = 8192
+vram             = 256
+
+# Network Configuration
+bridged_adapter  = "pentap0"  # Change to your network interface
+
+# Display Configuration
+graphics_controller = "vmsvga"
+clipboard_mode      = "bidirectional"
+
+# Optional: Specify exact box file path
+# box_file = "../../packer/outputs/kali-linux-2025.3-virtualbox-20251021-x86_64/kali-linux-2025.3-virtualbox-20251021-x86_64.box"
