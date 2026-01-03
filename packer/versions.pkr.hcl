@@ -5,9 +5,9 @@ packer {
       version = "= 1.1.4"
       source  = "github.com/hashicorp/ansible"
     }
-    virtualbox = {
-      version = "= 1.1.3"
-      source  = "github.com/hashicorp/virtualbox"
+    qemu = {
+      version = "~> 1.1.0"
+      source  = "github.com/hashicorp/qemu"
     }
   }
 }

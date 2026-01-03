@@ -1,0 +1,9 @@
+---
+- name: VMware tools provisioning
+  hosts: default
+  become_method: ansible.builtin.sudo
+
+  vars_files:
+    - ../inventory/group_vars/all/vault.yml
+
+  roles: []

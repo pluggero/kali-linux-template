@@ -1,5 +1,5 @@
 ---
-- name: Kali provisioning
+- name: Kali base provisioning
   hosts: default
   become_method: ansible.builtin.sudo
 
@@ -16,7 +16,6 @@
     - ../vars/fish.yml
     - ../vars/tigervnc.yml
     - ../vars/python.yml
-    - ../vars/virtualbox_guest.yml
     - ../vars/tool_installer.yml
 
   roles:
@@ -36,6 +35,5 @@
     - pluggero.tigervnc
     - pluggero.tmux
     - pluggero.tool_installer
-    - pluggero.virtualbox_guest
     - pluggero.wireshark
     - pluggero.yazi
