@@ -1,104 +1,159 @@
 # Kali Linux Template
 
-A reproducible, automated build pipeline for creating custom Kali Linux virtual machines using **Packer** and **Ansible**.
+Reproducible, multi-platform Kali Linux VM builds using Packer and Ansible.
 
-Currently supported platforms:
-
-- VirtualBox
+Layered architecture: base image (QEMU) + platform-specific configurations.
 
 ---
 
-## Getting started
+## Supported Platforms
 
-### Installation
+| Platform             | Output Format            | Guest Utilities | Import              |
+| -------------------- | ------------------------ | --------------- | ------------------- |
+| VirtualBox           | VMDK + OVF + Vagrant box | Guest Additions | Import .ovf or .box |
+| QEMU (alpha phase)   | qcow2                    | -               | Direct QEMU boot    |
+| VMware (alpha phase) | OVA + Vagrant box        | -               | Import .ova or .box |
 
-1. Clone the repository:
+---
 
-```
+## Installation
+
+```bash
 git clone https://github.com/pluggero/kali-linux-template.git
 cd kali-linux-template
-```
-
-2. Install virtual environment:
-
-```
-python3 -m venv venv
-source venv/bin/activate
-```
-
-3. Install dependencies:
-
-```
+python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
-```
-
-4. Install Packer plugins:
-
-```
 packer init packer/versions.pkr.hcl
 ```
 
-### Configuration
+---
 
-1. Create `vault.yml` file in `ansible/inventory/group_vars/all` directory:
+## Configuration
 
-```
-ansible_user: "<YOUR_USERNAMR>"
-ansible_ssh_private_key_file: "<PATH_TO_PRIVATE_KEY>"
-user_setup_password: "<USER_PASSWORD>"
-user_setup_password_salt: "<PASSWORD_SALT>"
+Create `ansible/inventory/group_vars/all/vault.yml`:
+
+```yaml
+ansible_user: "username"
+ansible_ssh_private_key_file: "path/to/key"
+user_setup_password: "password"
+user_setup_password_salt: "16-char-salt-no-special-chars"
 user_setup_ssh_public_keys:
-    - key: "<YOUR_SSH_PUBLIC_KEY>"
+  - key: "ssh-ed25519 ..."
 ```
 
-- **NOTE**: You can use the following command to generate a random password salt (it must be 16 characters long and should not include special characters):
+Encrypt with `ansible-vault encrypt ansible/inventory/group_vars/all/vault.yml` and store password in `ansible/inventory/group_vars/all/.vault_pass`.
+
+---
+
+## Build Targets
+
+Available targets: `base`, `qemu`, `virtualbox`, `vmware`, `all` (default)
+
+### Architecture
+
+1. **base** - Builds from Kali ISO, creates QEMU qcow2 base image
+   - Runs: `provision-init.yml` + `provision-base.yml`
+   - Contains: System setup + common tools/desktop environment
+
+2. **Platform targets** - Boot from base image, apply platform-specific configs
+   - `qemu`: Direct QEMU usage
+   - `virtualbox`: VirtualBox Guest Additions + VMDK/OVF conversion
+   - `vmware`: VMware OVA packaging
+
+### Examples
+
+```bash
+# Build everything (base + all platforms)
+./scripts/kali_provision.sh
+
+# Build only base image
+./scripts/kali_provision.sh -t base
+
+# Build specific platforms (base must exist or be included)
+./scripts/kali_provision.sh -t virtualbox
+./scripts/kali_provision.sh -t qemu -t virtualbox
+
+# Build base + specific platform
+./scripts/kali_provision.sh -t base -t vmware
+```
+
+---
+
+## Output Artifacts
 
 ```
-openssl rand -base64 32 | cut -c 16
+packer/outputs/kali-linux-<version>-<date>-x86_64/
+├── base/
+│   ├── kali-linux-*.qcow2           # Base QEMU image (reused by platforms)
+│   └── kali-linux-*.qcow2.sha256
+├── qemu/
+│   └── kali-linux-*.qcow2           # QEMU-specific image
+├── virtualbox/
+│   ├── kali-linux-*.vmdk
+│   └── kali-linux-*.ovf
+├── vmware/
+│   └── kali-linux-*.ova
+└── vagrant/
+    ├── kali-linux-*-virtualbox.box
+    └── kali-linux-*-vmware.box
 ```
-
-2. Create `.vault_pass` file containing the vault password in `ansible/inventory/group_vars/all` directory:
-
-```
-echo "<YOUR_VAULT_PASSWORD>" > ansible/inventory/group_vars/all/.vault_pass
-chmod 600 ansible/inventory/group_vars/all/.vault_pass
-```
-
-- **NOTE**: Your vault and its password are **never committed** to version control (see `.gitignore`).
 
 ---
 
 ## Usage
 
-### Build the Virtual Machine
+### Build
 
-This command runs Packer and Ansible to build a VirtualBox VM image:
-
+```bash
+./scripts/kali_provision.sh -t virtualbox
 ```
+
+### Import
+
+Import the generated artifacts:
+
+- **VirtualBox**: `packer/outputs/.../virtualbox/*.ovf`
+- **VMware**: `packer/outputs/.../vmware/*.ova`
+- **Vagrant**: `vagrant box add packer/outputs/.../vagrant/*.box`
+
+### Post-Deploy
+
+Once VM is running and accessible via SSH:
+
+```bash
+./scripts/kali_post_deploy.sh        # Full setup (rename, shared folders)
+./scripts/kali_post_deploy_custom.sh # Incremental customization
+```
+
+---
+
+## Customization
+
+### Modify Provisioning
+
+Edit playbooks in `ansible/playbooks/`:
+
+- `provision-base.yml` - Tools and desktop environment (runs on base build)
+- `provision-{platform}.yml` - Platform-specific guest utilities
+
+### Override Variables
+
+```bash
+export CONFIG_OVERRIDE=/path/to/custom/config.sh
 ./scripts/kali_provision.sh
 ```
 
-- **NOTE**: The output will be saved in the `packer/outputs` directory.
+See `scripts/config.sh` for configurable options.
 
-### Import the VM
+### Add Tools
 
-Import the resulting `.ovf` or `.box` file into **VirtualBox** manually or via **Terraform** (TBD).
-
-### Post-Deployment Configuration
-
-Once the VM is running and accessible via SSH:
-
-```
-./scripts/kali_post_deploy.sh
-```
-
-This applies additional post-configuration (e.g., user setup, shared folders, extra tools).
+Add Ansible roles to `provision-base.yml` or use `tool_installer` role configuration in `ansible/vars/tool_installer.yml`.
 
 ---
 
 ## Contributing
 
-Contributions are welcome!
+Issues and pull requests welcome at https://github.com/pluggero/kali-linux-template
 
 ---
 

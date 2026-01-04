@@ -1,0 +1,11 @@
+---
+- name: VirtualBox guest additions provisioning
+  hosts: default
+  become_method: ansible.builtin.sudo
+
+  vars_files:
+    - ../inventory/group_vars/all/vault.yml
+    - ../vars/virtualbox_guest.yml
+
+  roles:
+    - pluggero.virtualbox_guest

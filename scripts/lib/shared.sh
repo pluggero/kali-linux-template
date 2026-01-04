@@ -40,3 +40,19 @@ function extract_vm_password() {
   ansible-vault view "$vault_file" --vault-password-file "$vault_pass_file" \
     | grep user_setup_password: | cut -d '"' -f 2
 }
+
+function activate_venv() {
+  local venv_path="venv/bin/activate"
+  if [ -f "$venv_path" ]; then
+    source "$venv_path"
+  else
+    echo "ERROR: Python virtual environment not found at venv/"
+    echo ""
+    echo "Please create and configure the virtual environment:"
+    echo "  python3 -m venv venv"
+    echo "  source venv/bin/activate"
+    echo "  pip install -r requirements.txt"
+    echo ""
+    exit 1
+  fi
+}
