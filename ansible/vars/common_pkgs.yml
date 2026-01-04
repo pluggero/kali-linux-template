@@ -6,7 +6,7 @@ common_pkgs_apt:
     - enum4linux
     - jq
     - kali-themes
-    - keepassxc
+    # - keepassxc
     - libimage-exiftool-perl
     - libreoffice
     - lightdm

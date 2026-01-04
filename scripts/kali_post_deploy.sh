@@ -13,6 +13,7 @@ if [[ -n "${CONFIG_OVERRIDE:-}" && -f "$CONFIG_OVERRIDE" ]]; then
   source "$CONFIG_OVERRIDE"
 fi
 
+activate_venv
 assert_dependencies
 
 current_vm=$(select_vm)
