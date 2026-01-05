@@ -1,0 +1,11 @@
+---
+- name: Kali provisioning finalization
+  hosts: default
+  become_method: ansible.builtin.sudo
+
+  vars_files:
+    - ../inventory/group_vars/all/vault.yml
+    - ../vars/openssh.yml
+
+  roles:
+    - pluggero.openssh

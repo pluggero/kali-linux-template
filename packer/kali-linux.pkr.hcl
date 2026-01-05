@@ -14,6 +14,7 @@ source "qemu" "kali-linux-base" {
   ssh_username     = var.vm_ssh_username
   ssh_password     = var.vm_ssh_temp_password
   ssh_timeout      = var.vm_ssh_timeout
+  ssh_port         = var.vm_ssh_port
   boot_command     = local.debian_boot_command_x86_64
   boot_wait        = var.vm_boot_wait
   disk_size        = "${var.vm_disk_size}M"
@@ -43,6 +44,7 @@ source "qemu" "kali-linux-qemu" {
   ssh_username     = var.vm_ssh_username
   ssh_password     = var.vm_ssh_password
   ssh_timeout      = var.vm_ssh_timeout
+  ssh_port         = var.vm_ssh_port
   boot_wait        = "5s"
   disk_size        = "${var.vm_disk_size}M"
   disk_interface   = var.qemu_disk_interface
@@ -71,6 +73,7 @@ source "qemu" "kali-linux-virtualbox" {
   ssh_username     = var.vm_ssh_username
   ssh_password     = var.vm_ssh_password
   ssh_timeout      = var.vm_ssh_timeout
+  ssh_port         = var.vm_ssh_port
   boot_wait        = "5s"
   disk_size        = "${var.vm_disk_size}M"
   disk_interface   = var.qemu_disk_interface
@@ -99,6 +102,7 @@ source "qemu" "kali-linux-vmware" {
   ssh_username     = var.vm_ssh_username
   ssh_password     = var.vm_ssh_password
   ssh_timeout      = var.vm_ssh_timeout
+  ssh_port         = var.vm_ssh_port
   boot_wait        = "5s"
   disk_size        = "${var.vm_disk_size}M"
   disk_interface   = var.qemu_disk_interface
@@ -214,6 +218,23 @@ build {
   #   ]
   # }
 
+  provisioner "ansible" {
+    collections_path = "${path.root}/${var.ansible_collections_path}"
+    roles_path       = "${path.root}/${var.ansible_roles_path}"
+    playbook_file    = "${path.root}/${var.ansible_playbook_finalize}"
+    user             = "${var.vm_ssh_username}"
+    ansible_env_vars = [
+      "ANSIBLE_ROLES_PATH=${path.root}/${var.ansible_roles_path}",
+      "ANSIBLE_VAULT_PASSWORD_FILE=${path.root}/${var.ansible_vault_password_file}",
+      "ANSIBLE_FORCE_COLOR=true",
+      "ANSIBLE_HOST_KEY_CHECKING=false",
+    ]
+    extra_arguments = [
+      "--extra-vars",
+      "ansible_become_password=${var.vm_ssh_password} ansible_remote_tmp=/tmp ",
+    ]
+  }
+
 }
 
 # Build 3: VirtualBox image (with VirtualBox guest additions)
@@ -228,6 +249,23 @@ build {
     collections_path = "${path.root}/${var.ansible_collections_path}"
     roles_path       = "${path.root}/${var.ansible_roles_path}"
     playbook_file    = "${path.root}/${var.ansible_playbook_virtualbox}"
+    user             = "${var.vm_ssh_username}"
+    ansible_env_vars = [
+      "ANSIBLE_ROLES_PATH=${path.root}/${var.ansible_roles_path}",
+      "ANSIBLE_VAULT_PASSWORD_FILE=${path.root}/${var.ansible_vault_password_file}",
+      "ANSIBLE_FORCE_COLOR=true",
+      "ANSIBLE_HOST_KEY_CHECKING=false",
+    ]
+    extra_arguments = [
+      "--extra-vars",
+      "ansible_become_password=${var.vm_ssh_password} ansible_remote_tmp=/tmp ",
+    ]
+  }
+
+  provisioner "ansible" {
+    collections_path = "${path.root}/${var.ansible_collections_path}"
+    roles_path       = "${path.root}/${var.ansible_roles_path}"
+    playbook_file    = "${path.root}/${var.ansible_playbook_finalize}"
     user             = "${var.vm_ssh_username}"
     ansible_env_vars = [
       "ANSIBLE_ROLES_PATH=${path.root}/${var.ansible_roles_path}",
@@ -337,6 +375,23 @@ build {
   #     "ansible_become_password=${var.vm_ssh_password} ansible_remote_tmp=/tmp ",
   #   ]
   # }
+
+  provisioner "ansible" {
+    collections_path = "${path.root}/${var.ansible_collections_path}"
+    roles_path       = "${path.root}/${var.ansible_roles_path}"
+    playbook_file    = "${path.root}/${var.ansible_playbook_finalize}"
+    user             = "${var.vm_ssh_username}"
+    ansible_env_vars = [
+      "ANSIBLE_ROLES_PATH=${path.root}/${var.ansible_roles_path}",
+      "ANSIBLE_VAULT_PASSWORD_FILE=${path.root}/${var.ansible_vault_password_file}",
+      "ANSIBLE_FORCE_COLOR=true",
+      "ANSIBLE_HOST_KEY_CHECKING=false",
+    ]
+    extra_arguments = [
+      "--extra-vars",
+      "ansible_become_password=${var.vm_ssh_password} ansible_remote_tmp=/tmp ",
+    ]
+  }
 
   # Post-processors: Convert to VMware format
   post-processors {
