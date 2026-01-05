@@ -138,6 +138,12 @@ variable "ansible_playbook_init" {
   default     = ""
 }
 
+variable "ansible_playbook_finalize" {
+  description = "The finalization Ansible playbook"
+  type        = string
+  default     = ""
+}
+
 variable "ansible_playbook_base" {
   description = "Base playbook without any guest utilities"
   type        = string

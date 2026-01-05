@@ -1,0 +1,46 @@
+---
+openssh_service_enabled: true
+openssh_server:
+  # Network
+  port: 13322
+  listen_address: ["0.0.0.0", "::"]
+  # Authentication
+  permit_root_login: false
+  password_authentication: false
+  pubkey_authentication: true
+  authentication_methods: "publickey"
+  # Cryptography
+  kex:
+    - "curve25519-sha256"
+    - "sntrup761x25519-sha512@openssh.com"
+  ciphers:
+    - "chacha20-poly1305@openssh.com"
+    - "aes256-gcm@openssh.com"
+  macs:
+    - "hmac-sha2-512-etm@openssh.com"
+    - "hmac-sha2-256-etm@openssh.com"
+  # Logging
+  syslog_facility: "AUTH"
+  log_level: "INFO"
+  # Brute Force Protection
+  max_auth_tries: 2
+  max_sessions: 10
+  max_startups: "5:30:50"
+  login_grace_time: 20
+  # Access Control
+  allow_users: []
+  allow_groups: []
+  # Forwarding and Tunneling
+  x11_forwarding: false
+  allow_tcp_forwarding: true
+  allow_agent_forwarding: false
+  gateway_ports: false
+  permit_tunnel: false
+  # Additional Security
+  permit_empty_passwords: false
+  challenge_response_authentication: false
+  use_pam: true
+  print_motd: false
+  accept_env: ["LANG", "LC_*"]
+  # Banner Configuration
+  debian_banner: false
