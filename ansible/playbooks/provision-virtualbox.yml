@@ -9,3 +9,6 @@
 
   roles:
     - pluggero.virtualbox_guest
+
+- name: Import workarounds playbook
+  ansible.builtin.import_playbook: provision-workarounds.yml
