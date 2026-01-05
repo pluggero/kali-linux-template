@@ -7,3 +7,6 @@
     - ../inventory/group_vars/all/vault.yml
 
   roles: []
+
+- name: Import workarounds playbook
+  ansible.builtin.import_playbook: provision-workarounds.yml

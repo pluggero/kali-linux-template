@@ -1,0 +1,47 @@
+---
+- name: Temporary workarounds and fixes
+  hosts: default
+  become_method: ansible.builtin.sudo
+
+  vars_files:
+    - ../inventory/group_vars/all/vault.yml
+
+  tasks:
+    # TEMPORARY FIX: Kali Linux bug - xserver-xorg-video-vmware missing from repos
+    # This workaround installs the package from Debian bookworm temporarily
+    # TODO: Remove this block when the package becomes available in Kali repos
+    # Reference: https://bugs.kali.org/view.php?id=9441
+    - name: WORKAROUND - Install xserver-xorg-video-vmware from Debian bookworm
+      block:
+        - name: Create temporary Debian bookworm repository file
+          ansible.builtin.copy:
+            dest: /etc/apt/sources.list.d/tmp-debian-bookworm.list
+            content: |
+              # tmp-debian-bookworm
+              deb http://deb.debian.org/debian bookworm main contrib non-free
+            mode: "0644"
+            owner: root
+            group: root
+          become: true
+
+        - name: Update apt cache with temporary repository
+          ansible.builtin.apt:
+            update_cache: true
+          become: true
+
+        - name: Install xserver-xorg-video-vmware from bookworm
+          ansible.builtin.apt:
+            name: xserver-xorg-video-vmware
+            state: present
+          become: true
+
+        - name: Remove temporary Debian bookworm repository file
+          ansible.builtin.file:
+            path: /etc/apt/sources.list.d/tmp-debian-bookworm.list
+            state: absent
+          become: true
+
+        - name: Update apt cache after cleanup
+          ansible.builtin.apt:
+            update_cache: true
+          become: true
