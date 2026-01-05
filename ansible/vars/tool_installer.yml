@@ -10,7 +10,7 @@ tool_installer_tools:
     install_commands: []
     post_install_commands:
       - "chmod +x jwt_tool.py"
-      - "mkdir -p /home/kali/.jwt_tool && printf '[services]\njwt_tool_version = 2.3.0\n\n[argvals]\noverridesub = false\n' >> /home/kali/.jwt_tool/jwtconf.ini" # Fix config creation on python 3.14
+      - "mkdir -p /home/kali/.jwt_tool && printf '[services]\njwt_tool_version = 2.3.0\n\n[argvals]\noverridesub = false\n' >> /home/kali/.jwt_tool/jwtconf.ini && chown -R kali:kali /home/kali/.jwt_tool/" # Fix config creation on python 3.14
     executables:
       - src: "jwt_tool.py"
         name: "jwt_tool"
