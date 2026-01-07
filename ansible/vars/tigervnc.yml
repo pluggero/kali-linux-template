@@ -1,5 +1,10 @@
 ---
-tigervnc_service_manage: true
-tigervnc_service_enabled: true
-tigervnc_config_session: "i3"
-tigervnc_session_command: "/usr/bin/i3"
+tigervnc_users:
+  - username: "{{ ansible_user }}"
+    display: 4
+    password: ""
+    session_command: "/usr/bin/i3"
+    localhost: true
+    securitytypes: "none"
+    alwaysshared: true
+    service_enabled: true
