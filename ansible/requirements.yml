@@ -37,7 +37,7 @@ roles:
   - src: pluggero.tigervnc
     version: 1.2.0
   - src: pluggero.wireshark
-    version: 1.1.0
+    version: 1.2.0
   - src: pluggero.python
     version: 1.6.0
   - src: pluggero.upgrade
