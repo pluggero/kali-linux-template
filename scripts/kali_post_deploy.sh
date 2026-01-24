@@ -13,7 +13,11 @@ if [[ -n "${CONFIG_OVERRIDE:-}" && -f "$CONFIG_OVERRIDE" ]]; then
   source "$CONFIG_OVERRIDE"
 fi
 
-activate_venv
+# Verify python dependencies
+assert_virtual_env
+assert_python_dependencies "$PYTHON_REQUIREMENTS"
+
+# Verify system dependencies
 assert_dependencies
 
 current_vm=$(select_vm)

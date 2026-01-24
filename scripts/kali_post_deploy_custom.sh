@@ -14,7 +14,11 @@ if [[ -n "${CONFIG_OVERRIDE:-}" && -f "$CONFIG_OVERRIDE" ]]; then
 fi
 POST_DEPLOY_PLAYBOOK="$ANSIBLE_DIR/playbooks/post-deploy-custom.yml"
 
-activate_venv
+# Verify python dependencies
+assert_virtual_env
+assert_python_dependencies "$PYTHON_REQUIREMENTS"
+
+# Verify system dependencies
 assert_dependencies
 
 wait_for_ssh "kali.local"

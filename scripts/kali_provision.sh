@@ -66,8 +66,14 @@ if [[ ${#BUILD_TARGETS[@]} -eq 0 ]]; then
   BUILD_TARGETS=("all")
 fi
 
-activate_venv
+# Verify python dependencies
+assert_virtual_env
+assert_python_dependencies "$PYTHON_REQUIREMENTS"
+
+# Verify system dependencies
 assert_dependencies
+
+
 clean_roles "$ROLES_DIR"
 install_roles "$ROLES_DIR"
 
