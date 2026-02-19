@@ -1,5 +1,30 @@
 ---
 tmux_shell: "fish"
+tmux_prefix: "C-f"
+tmux_split_horizontal: "|"
+tmux_split_vertical: "-"
+
+tmux_key_bindings:
+  # Fix clear screen with vim-tmux-navigator
+  - key: "C-l"
+    flags: ""
+    command: "send-keys 'C-l'"
+  # Helper to copy the last command quickly
+  # This combination only works with the nim prompt of fish shell
+  - key: "C-y"
+    flags: "-n"
+    command: >-
+      copy-mode \; \
+      send-keys -X cursor-up \; \
+      send-keys -X cursor-up \; \
+      send-keys -X search-backward "$USER@$hostname" \; \
+      send-keys -X cursor-down \; \
+      send-keys -X begin-selection \; \
+      send-keys -X search-forward "$USER@$hostname" \; \
+      send-keys -X cursor-up \; \
+      send-keys -X end-of-line \; \
+      send-keys -X cursor-left
+
 tmux_plugins:
   - name: "vim-tmux-navigator"
     namespace: "christoomey"
