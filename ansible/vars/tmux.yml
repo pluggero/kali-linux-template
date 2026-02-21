@@ -14,15 +14,15 @@ tmux_key_bindings:
   - key: "C-y"
     flags: "-n"
     command: >-
-      copy-mode \; \
-      send-keys -X cursor-up \; \
-      send-keys -X cursor-up \; \
-      send-keys -X search-backward "$USER@$hostname" \; \
-      send-keys -X cursor-down \; \
-      send-keys -X begin-selection \; \
-      send-keys -X search-forward "$USER@$hostname" \; \
-      send-keys -X cursor-up \; \
-      send-keys -X end-of-line \; \
+      copy-mode \;
+      send-keys -X cursor-up \;
+      send-keys -X cursor-up \;
+      send-keys -X search-backward "$USER@$hostname" \;
+      send-keys -X cursor-down \;
+      send-keys -X begin-selection \;
+      send-keys -X search-forward "$USER@$hostname" \;
+      send-keys -X cursor-up \;
+      send-keys -X end-of-line \;
       send-keys -X cursor-left
 
 tmux_plugins:
