@@ -16,7 +16,7 @@ function wait_for_vm_ip() {
 function wait_for_ssh() {
   local host="$1"
   echo "Waiting for SSH to be available on $host..."
-  until nc -z "$host" 22; do
+  until nc -z "$host" "$SSH_PORT"; do
     sleep 2
   done
 }

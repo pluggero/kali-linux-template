@@ -79,6 +79,7 @@ install_roles "$ROLES_DIR"
 
 VM_PASSWORD=$(extract_vm_password "$VAULT_FILE" "$VAULT_PASS_FILE")
 export VM_SSH_PASSWORD="$VM_PASSWORD"
+export SSH_PORT
 trap 'unset VM_SSH_PASSWORD' EXIT
 
 if run_packer_build "${PACKER_VARS_FILE:-}" "${BUILD_TARGETS[@]}"; then
