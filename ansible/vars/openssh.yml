@@ -2,7 +2,7 @@
 openssh_service_enabled: true
 openssh_server:
   # Network
-  port: 13322
+  port: "{{ lookup('env', 'SSH_PORT') }}"
   listen_address: ["0.0.0.0", "::"]
   # Authentication
   permit_root_login: false

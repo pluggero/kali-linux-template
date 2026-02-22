@@ -45,6 +45,8 @@ install_roles "$ROLES_DIR"
 
 VM_PASSWORD=$(extract_vm_password "$VAULT_FILE" "$VAULT_PASS_FILE")
 
+export SSH_PORT
+
 ANSIBLE_CONFIG="$ANSIBLE_CONFIG_FILE" \
   ansible-playbook \
   "$POST_DEPLOY_PLAYBOOK" \
