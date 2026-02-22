@@ -168,7 +168,11 @@ function run_packer_build() {
     build_targets=("all")
   fi
 
+  # Set BUILD_DATE once for all builds in this session
+  export BUILD_DATE=$(date +%Y%m%d)
+
   echo "Running Packer build for target(s): ${build_targets[*]}"
+  echo "Using build date: $BUILD_DATE"
 
   # Validate targets
   if ! validate_build_targets "${build_targets[@]}"; then
