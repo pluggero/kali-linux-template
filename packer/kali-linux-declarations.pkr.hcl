@@ -51,7 +51,7 @@ locals {
   # This handles both base layer (packer/outputs) and work layer (../../packer/outputs)
   normalized_packer_output_dir = abspath("${path.root}/${var.packer_output_dir}")
 
-  qemu_output_name     = "${local.vm_name}-${formatdate("YYYYMMDD", timestamp())}-x86_64"
+  qemu_output_name     = "${local.vm_name}-${var.BUILD_DATE}-x86_64"
   qemu_output_base_dir = "${local.normalized_packer_output_dir}/${local.qemu_output_name}"
 
   # Packer working directories
@@ -71,6 +71,12 @@ locals {
 ##################################################################################
 
 # Environment Variables
+
+variable "BUILD_DATE" {
+  description = "Build date in YYYYMMDD format"
+  type        = string
+  default     = env("BUILD_DATE")
+}
 
 variable "HOME" {
   description = "The user's home directory"
