@@ -1,4 +1,5 @@
 ---
+fish_enable_vim_mode: true
 fish_env_variables:
   - name: GPG_TTY # Fix GPG with fish shell
     value: "(tty)"

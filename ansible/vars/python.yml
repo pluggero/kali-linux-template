@@ -122,3 +122,31 @@ python_tools:
     install_scope: "system"
     venv_name: "drozer"
     executables: ["drozer"]
+  - package: "pwntools"
+    version: "4.15.0"
+    install_scope: "system"
+    venv_name: "pwntools"
+    executables:
+      [
+        "asm",
+        "checksec",
+        "constgrep",
+        "cyclic",
+        "debug",
+        "disablenx",
+        "disasm",
+        "elfdiff",
+        "elfpatch",
+        "errno",
+        "hex",
+        "libcdb",
+        "phd",
+        "pwn",
+        "pwnstrip",
+        "scramble",
+        "shellcraft",
+        "template",
+        "unhex",
+      ]
+    tool_dependencies:
+      Debian: ["libssl-dev", "libffi-dev", "build-essential"]

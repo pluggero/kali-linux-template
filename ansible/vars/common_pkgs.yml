@@ -34,6 +34,7 @@ common_pkgs_apt:
     - wireshark
     - xclip
     - xxd
+    - whois
     - zip
     - zoxide
     # mobile pentesting
