@@ -285,9 +285,11 @@ build {
     post-processor "shell-local" {
       inline = [
         "set -e",
+        "echo 'Converting qcow2 to VirtualBox VMDK format...'",
         "mkdir -p ${local.virtualbox_output_path}",
         "qemu-img convert -f qcow2 -O vmdk -o subformat=streamOptimized ${local.virtualbox_packer_output}/${local.vm_name}.qcow2 ${local.virtualbox_output_path}/${local.vm_name}.vmdk",
         "test -f ${local.virtualbox_output_path}/${local.vm_name}.vmdk || exit 1",
+        "echo 'VMDK conversion complete'",
         "# Delete qcow2 to save space",
         "rm -rf ${local.virtualbox_packer_output}"
       ]
@@ -305,6 +307,7 @@ build {
     post-processor "shell-local" {
       inline = [
         "set -e",
+        "echo 'Generating VirtualBox OVF descriptor...'",
         "cd ${local.virtualbox_output_path}",
         <<-EOT
         cat > ${local.vm_name}.ovf <<'OVFEOF'
@@ -322,7 +325,8 @@ build {
         OVFEOF
         EOT
         ,
-        "test -f ${local.vm_name}.ovf || exit 1"
+        "test -f ${local.vm_name}.ovf || exit 1",
+        "echo 'OVF descriptor created successfully'"
       ]
     }
 
@@ -339,12 +343,14 @@ build {
     post-processor "shell-local" {
       inline = [
         "set -e",
+        "echo 'Creating Vagrant VirtualBox box...'",
         "mkdir -p ${local.vagrant_output_path}",
         "test -f ${local.virtualbox_output_path}/${local.vm_name}.vmdk || exit 1",
         "test -f ${local.virtualbox_output_path}/${local.vm_name}.ovf || exit 1",
         "echo '{\"provider\":\"virtualbox\"}' > ${local.vagrant_output_path}/metadata.json",
         "tar czf ${local.vagrant_output_path}/${local.vm_name}-virtualbox.box -C ${local.virtualbox_output_path} ${local.vm_name}.vmdk ${local.vm_name}.ovf -C ${local.vagrant_output_path} metadata.json",
         "test -f ${local.vagrant_output_path}/${local.vm_name}-virtualbox.box || exit 1",
+        "echo 'Vagrant box created: ${local.vm_name}-virtualbox.box'",
         "rm -f ${local.vagrant_output_path}/metadata.json"
       ]
     }
@@ -399,9 +405,11 @@ build {
     post-processor "shell-local" {
       inline = [
         "set -e",
+        "echo 'Converting qcow2 to VMware VMDK format...'",
         "mkdir -p ${local.vmware_output_path}",
         "qemu-img convert -f qcow2 -O vmdk -o subformat=streamOptimized ${local.vmware_packer_output}/${local.vm_name}.qcow2 ${local.vmware_output_path}/${local.vm_name}.vmdk",
         "test -f ${local.vmware_output_path}/${local.vm_name}.vmdk || exit 1",
+        "echo 'VMDK conversion complete'",
         "# Delete qcow2 to save space",
         "rm -f ${local.vmware_packer_output}/${local.vm_name}.qcow2"
       ]
@@ -419,6 +427,7 @@ build {
     post-processor "shell-local" {
       inline = [
         "set -e",
+        "echo 'Generating VMware OVF descriptor...'",
         "cd ${local.vmware_output_path}",
         <<-EOT
         cat > ${local.vm_name}.ovf <<'OVFEOF'
@@ -431,7 +440,8 @@ build {
         OVFEOF
         EOT
         ,
-        "test -f ${local.vm_name}.ovf || exit 1"
+        "test -f ${local.vm_name}.ovf || exit 1",
+        "echo 'OVF descriptor created successfully'"
       ]
     }
 
@@ -439,9 +449,11 @@ build {
     post-processor "shell-local" {
       inline = [
         "set -e",
+        "echo 'Creating VMware OVA archive...'",
         "cd ${local.vmware_output_path}",
         "tar -cf ${local.vm_name}.ova ${local.vm_name}.ovf ${local.vm_name}.vmdk",
         "test -f ${local.vm_name}.ova || exit 1",
+        "echo 'OVA archive created: ${local.vm_name}.ova'",
         "# Keep OVA and delete separate OVF/VMDK to save space",
         "rm -f ${local.vm_name}.ovf ${local.vm_name}.vmdk"
       ]
@@ -459,6 +471,7 @@ build {
     post-processor "shell-local" {
       inline = [
         "set -e",
+        "echo 'Creating Vagrant VMware box...'",
         "mkdir -p ${local.vagrant_output_path}/temp-vmware",
         "# Extract OVA to get OVF and VMDK for Vagrant box",
         "tar -xf ${local.vmware_output_path}/${local.vm_name}.ova -C ${local.vagrant_output_path}/temp-vmware",
@@ -470,6 +483,7 @@ build {
         "echo '{\"provider\":\"vmware_desktop\"}' > metadata.json",
         "tar czf ../${local.vm_name}-vmware.box *",
         "test -f ../${local.vm_name}-vmware.box || exit 1",
+        "echo 'Vagrant box created: ${local.vm_name}-vmware.box'",
         "cd ..",
         "rm -rf temp-vmware"
       ]
