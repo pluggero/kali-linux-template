@@ -125,6 +125,18 @@ Once VM is running and accessible via SSH:
 ./scripts/kali_post_deploy_custom.sh # Incremental customization
 ```
 
+#### Disk & LVM Management
+
+##### Extend Root Logical Volume After Disk Resize
+
+After the virtual disk was expanded (e.g. VirtualBox, VMware, QEMU), extend the root LVM volume:
+
+```bash
+sudo growpart /dev/sda 3
+sudo pvresize /dev/sda3
+sudo lvextend -r -l +100%FREE /dev/vg/root
+```
+
 ---
 
 ## Customization

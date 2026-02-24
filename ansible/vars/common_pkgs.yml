@@ -37,6 +37,7 @@ common_pkgs_apt:
     - whois
     - zip
     - zoxide
+    - cloud-guest-utils
     # mobile pentesting
     - adb
     - libimobiledevice-utils
