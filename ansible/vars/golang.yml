@@ -24,3 +24,5 @@ golang_tools:
     version: "v0.9.2"
   - name: "github.com/assetnote/kiterunner/cmd/kiterunner"
     version: "v1.0.2"
+  - name: "github.com/xonoxitron/regreSSHion-checker"
+    version: "ae73f5ff39490930fe4d730964121a9c3aa7e7b2"
