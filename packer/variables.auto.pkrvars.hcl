@@ -12,29 +12,30 @@ packer_input_dir  = "inputs"
 packer_output_dir = "outputs"
 
 # Ansible Settings
-ansible_vault_password_file = "../ansible/inventory/group_vars/all/.vault_pass"
-ansible_collections_path    = "../ansible/collections"
-ansible_roles_path          = "../ansible/roles"
-ansible_requirements_file   = "../ansible/requirements.yml"
-ansible_playbook_init       = "../ansible/playbooks/provision-init.yml"
-ansible_playbook_finalize   = "../ansible/playbooks/provision-finalize.yml"
-ansible_playbook_base       = "../ansible/playbooks/provision-base.yml"
-ansible_playbook_qemu       = "../ansible/playbooks/provision-qemu.yml"
-ansible_playbook_virtualbox = "../ansible/playbooks/provision-virtualbox.yml"
-ansible_playbook_vmware     = "../ansible/playbooks/provision-vmware.yml"
+ansible_vault_password_file  = "../ansible/inventory/group_vars/all/.vault_pass"
+ansible_collections_path     = "../ansible/collections"
+ansible_roles_path           = "../ansible/roles"
+ansible_requirements_file    = "../ansible/requirements.yml"
+ansible_playbook_init        = "../ansible/playbooks/provision-init.yml"
+ansible_playbook_finalize    = "../ansible/playbooks/provision-finalize.yml"
+ansible_playbook_base        = "../ansible/playbooks/provision-base.yml"
+ansible_playbook_qemu        = "../ansible/playbooks/provision-qemu.yml"
+ansible_playbook_virtualbox  = "../ansible/playbooks/provision-virtualbox.yml"
+ansible_playbook_vmware      = "../ansible/playbooks/provision-vmware.yml"
 
 # Virtual Machine Settings
-vm_guest_os_version      = "2025.4"
-vm_boot_wait             = "10s"
-vm_cpu_core              = 4
-vm_mem_size              = 6144 # Must be at least 6144 (MB) for /tmp to be large enough
-vm_root_shutdown_command = "/sbin/shutdown -hP now"
-vm_disk_size             = 60000 # Must be at least 16000 (MB) for the Kali installation to succeed
-vm_ssh_port              = 22
-vm_ssh_timeout           = "3600s"
-vm_hostname              = "kali"
-vm_ssh_username          = "kali"
-vm_ssh_temp_password     = "KaliSuperSecureTemp!"
+vm_guest_os_version          = "2025.4"
+vm_guest_iso_checksum_x86_64 = "3b4a3a9f5fb6532635800d3eda94414fb69a44165af6db6fa39c0bdae750c266"
+vm_boot_wait                 = "10s"
+vm_cpu_core                  = 4
+vm_mem_size                  = 6144 # Must be at least 6144 (MB) for /tmp to be large enough
+vm_root_shutdown_command     = "/sbin/shutdown -hP now"
+vm_disk_size                 = 60000 # Must be at least 16000 (MB) for the Kali installation to succeed
+vm_ssh_port                  = 22
+vm_ssh_timeout               = "3600s"
+vm_hostname                  = "kali"
+vm_ssh_username              = "kali"
+vm_ssh_temp_password         = "KaliSuperSecureTemp!"
 
 # QEMU Settings
 qemu_accelerator    = "kvm"

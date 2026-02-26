@@ -6,8 +6,8 @@
 
 locals {
   kali_iso_name_x86_64     = "kali-linux-${var.vm_guest_os_version}-installer-amd64.iso"
-  kali_iso_url_x86_64      = "https://kali.download/base-images/kali-${var.vm_guest_os_version}/${local.kali_iso_name_x86_64}"
-  kali_iso_checksum_x86_64 = "file:https://kali.download/base-images/kali-${var.vm_guest_os_version}/SHA256SUMS"
+  kali_iso_url_x86_64      = "https://old.kali.org/kali-images/kali-${var.vm_guest_os_version}/${local.kali_iso_name_x86_64}"
+  kali_iso_checksum_x86_64 = "sha256:${var.vm_guest_iso_checksum_x86_64}"
 }
 
 local "http_directory" {
@@ -181,6 +181,12 @@ variable "ansible_playbook_vmware" {
 # Virtual Machine Settings
 variable "vm_guest_os_version" {
   description = "Version of guest os to install"
+  type        = string
+  default     = ""
+}
+
+variable "vm_guest_iso_checksum_x86_64" {
+  description = "Checksum of the iso installer"
   type        = string
   default     = ""
 }
