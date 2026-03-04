@@ -150,3 +150,26 @@ python_tools:
       ]
     tool_dependencies:
       Debian: ["libssl-dev", "libffi-dev", "build-essential"]
+  - package: "opcua-client"
+    version: "0.8.4"
+    install_scope: "system"
+    venv_name: "opcua"
+    executables: ["opcua-client"]
+  - package: "asyncua"
+    version: "1.1.8"
+    install_scope: "system"
+    venv_name: "opcua"
+    executables:
+      [
+        "uabrowse",
+        "uacall",
+        "uaclient",
+        "uadiscover",
+        "uageneratestructs",
+        "uahistoryread",
+        "uals",
+        "uaread",
+        "uaserver",
+        "uasubscribe",
+        "uawrite",
+      ]
