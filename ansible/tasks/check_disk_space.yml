@@ -1,0 +1,23 @@
+---
+# Shared disk space validation tasks
+# Ensures minimum required disk space is available before proceeding with deployment
+# This prevents failures during resource-intensive installations
+
+- name: Check available disk space on root filesystem
+  ansible.builtin.shell: df -BM / | awk 'NR==2 {print $4}' | sed 's/M//'
+  register: pre_task_disk_space_available
+  changed_when: false
+  failed_when: false
+
+- name: Display current available disk space
+  ansible.builtin.debug:
+    msg: "Available disk space on /: {{ pre_task_disk_space_available.stdout }} MB ({{ (pre_task_disk_space_available.stdout | int / 1024) | round(2) }} GB)"
+
+- name: Fail if insufficient disk space
+  ansible.builtin.fail:
+    msg: >-
+      ERROR: Insufficient disk space on root filesystem (/).
+      Available: {{ pre_task_disk_space_available.stdout }} MB ({{ (pre_task_disk_space_available.stdout | int / 1024) | round(2) }} GB).
+      Required: 5120 MB (5 GB) minimum.
+      Please free up disk space or expand the virtual disk before continuing.
+  when: pre_task_disk_space_available.stdout | int < 5120

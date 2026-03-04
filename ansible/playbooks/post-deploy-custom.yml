@@ -3,6 +3,10 @@
   hosts: kali
   become_method: sudo
 
+  pre_tasks:
+    - name: Include disk space validation
+      ansible.builtin.include_tasks: ../tasks/check_disk_space.yml
+
   vars:
 
   roles:
