@@ -29,7 +29,7 @@ roles:
   - src: pluggero.golang
     version: 1.8.0
   - src: pluggero.user_setup
-    version: 2.6.0
+    version: 2.7.0
   - src: pluggero.bibata_cursor
     version: 1.1.0
   - src: pluggero.yazi
