@@ -12,7 +12,7 @@ d-i keyboard-configuration/layoutcode string us
 
 ### Network
 d-i netcfg/choose_interface select auto
-d-i netcfg/get_hostname string kali-cleanroom
+d-i netcfg/get_hostname string ${vm_hostname}
 d-i netcfg/get_domain string local.lan
 
 ### Mirror
@@ -29,15 +29,15 @@ d-i apt-setup/use_mirror boolean true
 
 ### Root Account
 d-i passwd/root-login boolean true
-d-i passwd/root-password password RootSuperSecureTemp!
-d-i passwd/root-password-again password RootSuperSecureTemp!
+d-i passwd/root-password password ${vm_root_temp_password}
+d-i passwd/root-password-again password ${vm_root_temp_password}
 
 ### User Account
 d-i passwd/make-user boolean true
-d-i passwd/user-fullname string Kali user
-d-i passwd/username string kali
-d-i passwd/user-password password KaliSuperSecureTemp!
-d-i passwd/user-password-again password KaliSuperSecureTemp!
+d-i passwd/user-fullname string ${vm_user_fullname}
+d-i passwd/username string ${vm_username}
+d-i passwd/user-password password ${vm_user_temp_password}
+d-i passwd/user-password-again password ${vm_user_temp_password}
 d-i user-setup/encrypt-home boolean false
 d-i user-setup/allow-password-weak boolean false
 d-i passwd/user-default-groups string audio cdrom video admin sudo
@@ -118,8 +118,8 @@ d-i pkgsel/upgrade select full-upgrade
 d-i grub-installer/only_debian boolean true
 d-i grub-installer/with_other_os boolean false
 d-i grub-installer/bootdev string default
-d-i grub-installer/password password GrubSecret!
-d-i grub-installer/password-again password GrubSecret!
+d-i grub-installer/password password ${vm_grub_password}
+d-i grub-installer/password-again password ${vm_grub_password}
 d-i grub-installer/force-efi-extra-removable boolean true
 
 ### Post-install Configuration

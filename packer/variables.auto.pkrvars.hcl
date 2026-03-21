@@ -5,7 +5,6 @@
 # HTTP Settings
 http_interface   = "pentap0"
 preseed_file     = "preseed.cfg"
-preseed_checksum = "16b7b085d1399f47f93209f90b5af129"
 
 # Packer Settings
 packer_input_dir  = "inputs"
@@ -31,11 +30,8 @@ vm_cpu_core                  = 4
 vm_mem_size                  = 6144 # Must be at least 6144 (MB) for /tmp to be large enough
 vm_root_shutdown_command     = "/sbin/shutdown -hP now"
 vm_disk_size                 = 60000 # Must be at least 16000 (MB) for the Kali installation to succeed
-vm_ssh_port                  = 22
+vm_ssh_build_port            = 22
 vm_ssh_timeout               = "3600s"
-vm_hostname                  = "kali"
-vm_ssh_username              = "kali"
-vm_ssh_temp_password         = "KaliSuperSecureTemp!"
 
 # QEMU Settings
 qemu_accelerator    = "kvm"

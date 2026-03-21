@@ -8,13 +8,22 @@ source "qemu" "kali-linux-base" {
   iso_url          = local.kali_iso_url_x86_64
   iso_checksum     = local.kali_iso_checksum_x86_64
   iso_target_path  = "${path.root}/${var.packer_input_dir}/${local.kali_iso_name_x86_64}"
-  http_directory   = local.http_directory
+  http_content = {
+    "/preseed.cfg" = templatefile("http/preseed.cfg.pkrtpl.hcl", {
+      vm_hostname           = var.vm_hostname
+      vm_username           = var.vm_username
+      vm_user_fullname      = var.vm_user_fullname
+      vm_grub_password      = var.vm_grub_password
+      vm_root_temp_password = var.vm_root_temp_password
+      vm_user_temp_password = var.vm_user_temp_password
+    })
+  }
   http_interface   = var.http_interface
   shutdown_command = local.vm_nonroot_shutdown_command
   ssh_username     = var.vm_ssh_username
   ssh_password     = var.vm_ssh_temp_password
   ssh_timeout      = var.vm_ssh_timeout
-  ssh_port         = var.vm_ssh_port
+  ssh_port         = var.vm_ssh_build_port
   boot_command     = local.debian_boot_command_x86_64
   boot_wait        = var.vm_boot_wait
   disk_size        = "${var.vm_disk_size}M"
@@ -44,7 +53,7 @@ source "qemu" "kali-linux-qemu" {
   ssh_username     = var.vm_ssh_username
   ssh_password     = var.vm_ssh_password
   ssh_timeout      = var.vm_ssh_timeout
-  ssh_port         = var.vm_ssh_port
+  ssh_port         = var.vm_ssh_build_port
   boot_wait        = "5s"
   disk_size        = "${var.vm_disk_size}M"
   disk_interface   = var.qemu_disk_interface
@@ -73,7 +82,7 @@ source "qemu" "kali-linux-virtualbox" {
   ssh_username     = var.vm_ssh_username
   ssh_password     = var.vm_ssh_password
   ssh_timeout      = var.vm_ssh_timeout
-  ssh_port         = var.vm_ssh_port
+  ssh_port         = var.vm_ssh_build_port
   boot_wait        = "5s"
   disk_size        = "${var.vm_disk_size}M"
   disk_interface   = var.qemu_disk_interface
@@ -102,7 +111,7 @@ source "qemu" "kali-linux-vmware" {
   ssh_username     = var.vm_ssh_username
   ssh_password     = var.vm_ssh_password
   ssh_timeout      = var.vm_ssh_timeout
-  ssh_port         = var.vm_ssh_port
+  ssh_port         = var.vm_ssh_build_port
   boot_wait        = "5s"
   disk_size        = "${var.vm_disk_size}M"
   disk_interface   = var.qemu_disk_interface

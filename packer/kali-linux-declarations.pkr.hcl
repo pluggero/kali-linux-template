@@ -33,7 +33,6 @@ local "debian_boot_command_x86_64" {
     "<down><down><down><end>",
     " --- ",
     "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/${var.preseed_file} ",
-    "preseed/url/checksum=${var.preseed_checksum} ",
     "locale=en_US ",
     "keymap=us ",
     "hostname=${var.vm_hostname} ",
@@ -95,11 +94,6 @@ variable "http_interface" {
 variable "preseed_file" {
   type        = string
   description = "Path to a preseed file"
-}
-
-variable "preseed_checksum" {
-  type        = string
-  description = "MD5SUM of the preseed file."
 }
 
 # Packer Settings
@@ -224,20 +218,53 @@ variable "vm_ssh_timeout" {
   default     = ""
 }
 
-variable "vm_ssh_port" {
-  description = "The port to use for SSH"
+variable "vm_ssh_build_port" {
+  description = "The temporary SSH port used during Packer build"
   type        = number
 }
 
 variable "vm_hostname" {
   type        = string
   description = "The hostname of the VM"
+  default     = env("VM_HOSTNAME")
+
+  validation {
+    condition     = length(var.vm_hostname) > 0
+    error_message = "The vm_hostname variable cannot be empty. Ensure VM_HOSTNAME environment variable is set."
+  }
+
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$", var.vm_hostname))
+    error_message = "The vm_hostname must be a valid RFC 1123 hostname (alphanumeric and hyphens, 1-63 chars)."
+  }
+}
+
+variable "vm_username" {
+  type        = string
+  description = "The username for the VM"
+  default     = env("VM_USERNAME")
+
+  validation {
+    condition     = length(var.vm_username) > 0
+    error_message = "The vm_username variable cannot be empty. Ensure VM_USERNAME environment variable is set."
+  }
+}
+
+variable "vm_user_fullname" {
+  type        = string
+  description = "The full name for the VM user"
+  default     = env("VM_USER_FULLNAME")
+
+  validation {
+    condition     = length(var.vm_user_fullname) > 0
+    error_message = "The vm_user_fullname variable cannot be empty. Ensure VM_USER_FULLNAME environment variable is set."
+  }
 }
 
 variable "vm_ssh_username" {
   description = "The username to use for SSH connection"
   type        = string
-  default     = ""
+  default     = env("VM_USERNAME")
 }
 
 variable "vm_ssh_password" {
@@ -247,9 +274,30 @@ variable "vm_ssh_password" {
 }
 
 variable "vm_ssh_temp_password" {
-  description = "The temporary password to use for SSH connection"
+  description = "The temporary password to use for SSH connection during base build"
   type        = string
-  default     = ""
+  default     = env("VM_USER_TEMP_PASSWORD")
+}
+
+variable "vm_grub_password" {
+  description = "GRUB bootloader password"
+  type        = string
+  sensitive   = true
+  default     = env("VM_GRUB_PASSWORD")
+}
+
+variable "vm_root_temp_password" {
+  description = "Temporary root password for initial build"
+  type        = string
+  sensitive   = true
+  default     = env("VM_ROOT_TEMP_PASSWORD")
+}
+
+variable "vm_user_temp_password" {
+  description = "Temporary user password for initial build"
+  type        = string
+  sensitive   = true
+  default     = env("VM_USER_TEMP_PASSWORD")
 }
 
 
