@@ -111,9 +111,68 @@ function install_roles() {
   done
 }
 
-function extract_vm_password() {
+function extract_vault_field() {
   local vault_file="$1"
   local vault_pass_file="$2"
-  ansible-vault view "$vault_file" --vault-password-file "$vault_pass_file" \
-    | grep user_setup_password: | cut -d '"' -f 2
+  local field_name="$3"
+
+  # Get the directory where this script is located
+  local script_dir
+  script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+  # Path to Python extraction script
+  local python_script="${script_dir}/extract_vault_field.py"
+
+  # Validate Python script exists
+  if [[ ! -f "$python_script" ]]; then
+    echo "ERROR: Python extraction script not found: ${python_script}" >&2
+    return 1
+  fi
+
+  # Call Python script for robust YAML parsing
+  local value
+  value=$(python "$python_script" "$vault_file" "$vault_pass_file" "$field_name" 2>&1)
+  local exit_code=$?
+
+  # Check if extraction failed
+  if [[ $exit_code -ne 0 ]]; then
+    # Error message already printed by Python script to stderr
+    return 1
+  fi
+
+  # Validate value is not empty
+  if [[ -z "$value" ]]; then
+    echo "ERROR: Extracted value for '${field_name}' is empty" >&2
+    return 1
+  fi
+
+  echo "$value"
+}
+
+function extract_vm_password() {
+  extract_vault_field "$1" "$2" "user_setup_user_password"
+}
+
+function extract_vm_hostname() {
+  extract_vault_field "$1" "$2" "vm_hostname"
+}
+
+function extract_vm_username() {
+  extract_vault_field "$1" "$2" "vm_username"
+}
+
+function extract_vm_user_fullname() {
+  extract_vault_field "$1" "$2" "vm_user_fullname"
+}
+
+function extract_vm_grub_password() {
+  extract_vault_field "$1" "$2" "vm_grub_password"
+}
+
+function extract_vm_root_password() {
+  extract_vault_field "$1" "$2" "user_setup_root_password"
+}
+
+function extract_vm_root_password_salt() {
+  extract_vault_field "$1" "$2" "user_setup_root_salt"
 }
