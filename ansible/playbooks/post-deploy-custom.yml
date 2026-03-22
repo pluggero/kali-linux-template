@@ -3,10 +3,11 @@
   hosts: kali
   become_method: sudo
 
+  vars:
+    ansible_port: "{{ lookup('env', 'SSH_PORT') }}"
+
   pre_tasks:
     - name: Include disk space validation
       ansible.builtin.include_tasks: ../tasks/check_disk_space.yml
-
-  vars:
 
   roles:
