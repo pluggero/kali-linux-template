@@ -157,6 +157,10 @@ function extract_vm_hostname() {
   extract_vault_field "$1" "$2" "vm_hostname"
 }
 
+function extract_vm_domain() {
+  extract_vault_field "$1" "$2" "vm_domain"
+}
+
 function extract_vm_username() {
   extract_vault_field "$1" "$2" "vm_username"
 }

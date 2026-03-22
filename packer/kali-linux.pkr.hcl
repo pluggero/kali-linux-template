@@ -11,6 +11,7 @@ source "qemu" "kali-linux-base" {
   http_content = {
     "/preseed.cfg" = templatefile("http/preseed.cfg.pkrtpl.hcl", {
       vm_hostname           = var.vm_hostname
+      vm_domain             = var.vm_domain
       vm_username           = var.vm_username
       vm_user_fullname      = var.vm_user_fullname
       vm_grub_password      = var.vm_grub_password

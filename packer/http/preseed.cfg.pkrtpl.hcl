@@ -11,9 +11,13 @@ d-i keyboard-configuration/xkb-keymap select us
 d-i keyboard-configuration/layoutcode string us
 
 ### Network
+# netcfg/* must be set via kernel parameters because of network-based preseeding
+# See https://wiki.debian.org/DebianInstaller/Preseed#Loading_the_preseeding_file_from_a_webserver
 d-i netcfg/choose_interface select auto
 d-i netcfg/get_hostname string ${vm_hostname}
-d-i netcfg/get_domain string local.lan
+d-i netcfg/get_domain string ${vm_domain}
+# Prevent DHCP from overriding hostname (Debian bug #755848)
+d-i netcfg/dhcp_hostname string ${vm_hostname}
 
 ### Mirror
 d-i mirror/country string manual
