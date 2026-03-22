@@ -3,11 +3,8 @@
   hosts: kali
   become_method: sudo
 
-  pre_tasks:
-    - name: Include disk space validation
-      ansible.builtin.include_tasks: ../tasks/check_disk_space.yml
-
   vars:
+    ansible_port: "{{ lookup('env', 'SSH_PORT') }}"
     vm_share_helper_sync_folders:
       - vbox_share_name: "shared"
         unison_name: "shared"
@@ -17,6 +14,10 @@
     vm_share_helper_burp_zip_helper:
       script_path: "{{ ansible_env.HOME }}/zip_burp_files.sh"
       sync_interval: "45min"
+
+  pre_tasks:
+    - name: Include disk space validation
+      ansible.builtin.include_tasks: ../tasks/check_disk_space.yml
 
   roles:
     - pluggero.vm_share_helper
