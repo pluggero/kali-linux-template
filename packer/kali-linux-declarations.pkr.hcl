@@ -25,21 +25,24 @@ locals {
   vm_nonroot_shutdown_command = "echo '${var.vm_ssh_password}'|sudo -S shutdown -P now"
 }
 
-# https://forums.virtualbox.org/viewtopic.php?t=110897
-# UEFI boot command for GRUB EFI boot loader
-local "debian_boot_command_x86_64" {
-  expression = [
-    "e<wait>",
-    "<down><down><down><end>",
-    " --- ",
-    "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/${var.preseed_file} ",
-    "locale=en_US ",
-    "keymap=us ",
-    "hostname=${var.vm_hostname} ",
-    "domain='' ",
-    " --- ",
-    "<f10>"
+# Boot command
+locals {
+  debian_boot_clear_existing_kernel_args = join("", [for _ in range(112) : "<bs>"])
+  
+  # Hostname and domain have to be set in boot command because of network-based preseeding
+  # See https://wiki.debian.org/DebianInstaller/Preseed#Loading_the_preseeding_file_from_a_webserver
+  debian_boot_kernel_args = format(
+    " auto=true priority=critical netcfg/get_hostname=%s netcfg/get_domain=%s preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/${var.preseed_file} ---",
+    var.vm_hostname,
+    var.vm_domain,
+  )
 
+  debian_boot_command_x86_64 = [
+    "e<wait>",
+    "<down><down><down><end><wait>",
+    local.debian_boot_clear_existing_kernel_args,
+    local.debian_boot_kernel_args,
+    "<f10>",
   ]
 }
 
@@ -237,6 +240,12 @@ variable "vm_hostname" {
     condition     = can(regex("^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$", var.vm_hostname))
     error_message = "The vm_hostname must be a valid RFC 1123 hostname (alphanumeric and hyphens, 1-63 chars)."
   }
+}
+
+variable "vm_domain" {
+  type        = string
+  description = "The domain name of the VM"
+  default     = env("VM_DOMAIN")
 }
 
 variable "vm_username" {

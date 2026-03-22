@@ -90,6 +90,8 @@ VM_HOSTNAME=$(extract_vm_hostname "$VAULT_FILE" "$VAULT_PASS_FILE") || {
   exit 1
 }
 
+VM_DOMAIN=$(extract_vm_domain "$VAULT_FILE" "$VAULT_PASS_FILE") || VM_DOMAIN=""
+
 VM_USERNAME=$(extract_vm_username "$VAULT_FILE" "$VAULT_PASS_FILE") || {
   echo "FATAL: Failed to extract VM username from vault"
   exit 1
@@ -109,6 +111,7 @@ echo "Successfully extracted vault secrets"
 
 export VM_SSH_PASSWORD="$VM_PASSWORD"
 export VM_HOSTNAME="$VM_HOSTNAME"
+export VM_DOMAIN="$VM_DOMAIN"
 export VM_USERNAME="$VM_USERNAME"
 export VM_USER_FULLNAME="$VM_USER_FULLNAME"
 export VM_GRUB_PASSWORD="$VM_GRUB_PASSWORD"
@@ -119,7 +122,7 @@ export SSH_PORT
 export VM_ROOT_TEMP_PASSWORD="${VM_ROOT_TEMP_PASSWORD:-$(openssl rand -base64 32)}"
 export VM_USER_TEMP_PASSWORD="${VM_USER_TEMP_PASSWORD:-$(openssl rand -base64 32)}"
 
-trap 'unset VM_SSH_PASSWORD VM_HOSTNAME VM_USERNAME VM_USER_FULLNAME VM_GRUB_PASSWORD VM_ROOT_TEMP_PASSWORD VM_USER_TEMP_PASSWORD' EXIT
+trap 'unset VM_SSH_PASSWORD VM_HOSTNAME VM_DOMAIN VM_USERNAME VM_USER_FULLNAME VM_GRUB_PASSWORD VM_ROOT_TEMP_PASSWORD VM_USER_TEMP_PASSWORD' EXIT
 
 if run_packer_build "${PACKER_VARS_FILE:-}" "${BUILD_TARGETS[@]}"; then
   LATEST_OUTPUT=$(get_latest_output_dir "$OUTPUT_DIR")
