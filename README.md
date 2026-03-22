@@ -38,6 +38,7 @@ ansible_ssh_private_key_file: "path/to/key"
 
 # VM Configuration
 vm_hostname: "custom-hostname"
+vm_domain: ""
 vm_username: "username"
 vm_user_fullname: "Kali User"
 
