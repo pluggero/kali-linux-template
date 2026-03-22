@@ -35,9 +35,21 @@ Create `ansible/inventory/group_vars/all/vault.yml`:
 ```yaml
 ansible_user: "username"
 ansible_ssh_private_key_file: "path/to/key"
-user_setup_password: "password"
-user_setup_password_salt: "16-char-salt-no-special-chars"
-user_setup_ssh_public_keys:
+
+# VM Configuration
+vm_hostname: "custom-hostname"
+vm_username: "{{ ansible_user }}"
+vm_user_fullname: "Kali User"
+
+# System Passwords
+vm_grub_password: "<secure-password>"
+
+# User Setup
+user_setup_root_password: "<secure-password>"
+user_setup_root_salt: "<16-char-salt-no-special-chars>"
+user_setup_user_password: "<secure-password>"
+user_setup_user_password_salt: "<16-char-salt-no-special-chars>"
+user_setup_user_ssh_public_keys:
   - key: "ssh-ed25519 ..."
 ```
 
