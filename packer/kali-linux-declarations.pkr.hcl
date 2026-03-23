@@ -31,6 +31,7 @@ locals {
   
   # Hostname and domain have to be set in boot command because of network-based preseeding
   # See https://wiki.debian.org/DebianInstaller/Preseed#Loading_the_preseeding_file_from_a_webserver
+  # The auto and priority parameter enable unattended installation (see https://hands.com/d-i/#Parameters)
   debian_boot_kernel_args = format(
     " auto=true priority=critical netcfg/get_hostname=%s netcfg/get_domain=%s preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/${var.preseed_file} ---",
     var.vm_hostname,
