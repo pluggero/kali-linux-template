@@ -184,7 +184,7 @@ build {
   }
 
   provisioner "shell" {
-    script          = "scripts/cleanup.sh"
+    script          = "${path.root}/scripts/cleanup.sh"
     execute_command = "sudo bash '{{ .Path }}'"
   }
 
