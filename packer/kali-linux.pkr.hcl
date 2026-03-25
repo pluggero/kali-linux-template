@@ -183,9 +183,25 @@ build {
     ]
   }
 
+  provisioner "shell" {
+    script          = "scripts/cleanup.sh"
+    execute_command = "sudo bash '{{ .Path }}'"
+  }
+
   provisioner "breakpoint" {
     disable = true
     note    = "Breakpoint after ansible run"
+  }
+
+  # Post-processor: Compress base image for smaller output
+  post-processor "shell-local" {
+    inline = [
+      "set -e",
+      "echo 'Compressing base image with qemu-img convert -c...'",
+      "qemu-img convert -c -p -O qcow2 ${local.base_packer_output}/${local.vm_name}.qcow2 ${local.base_packer_output}/${local.vm_name}.qcow2.tmp",
+      "mv ${local.base_packer_output}/${local.vm_name}.qcow2.tmp ${local.base_packer_output}/${local.vm_name}.qcow2",
+      "echo 'Base image compression complete'"
+    ]
   }
 
   # Post-processor: Generate checksum file for downstream builds
@@ -242,6 +258,17 @@ build {
     extra_arguments = [
       "--extra-vars",
       "ansible_become_password=${var.vm_ssh_password} ansible_remote_tmp=/tmp ",
+    ]
+  }
+
+  # Post-processor: Compress qemu image for smaller output
+  post-processor "shell-local" {
+    inline = [
+      "set -e",
+      "echo 'Compressing qemu image with qemu-img convert -c...'",
+      "qemu-img convert -c -p -O qcow2 ${local.qemu_packer_output}/${local.vm_name}.qcow2 ${local.qemu_packer_output}/${local.vm_name}.qcow2.tmp",
+      "mv ${local.qemu_packer_output}/${local.vm_name}.qcow2.tmp ${local.qemu_packer_output}/${local.vm_name}.qcow2",
+      "echo 'Qemu image compression complete'"
     ]
   }
 
