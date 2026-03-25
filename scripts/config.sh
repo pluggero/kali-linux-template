@@ -9,6 +9,12 @@ OUTPUT_DIR="$PACKER_DIR/outputs"
 # === Packer ===
 PACKER_TMPDIR="/var/tmp"
 
+# === Disk Space Requirements per Build Target (in GB) ===
+DISK_SPACE_BASE_GB=45
+DISK_SPACE_QEMU_GB=45
+DISK_SPACE_VIRTUALBOX_GB=40
+DISK_SPACE_VMWARE_GB=40
+
 # === Vault ===
 VAULT_FILE="$ANSIBLE_DIR/inventory/group_vars/all/vault.yml"
 VAULT_PASS_FILE="$ANSIBLE_DIR/inventory/group_vars/all/.vault_pass"

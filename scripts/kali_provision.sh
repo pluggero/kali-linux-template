@@ -73,6 +73,20 @@ assert_python_dependencies "$PYTHON_REQUIREMENTS"
 # Verify system dependencies
 assert_dependencies
 
+# Verify sufficient disk space for selected build targets
+REQUIRED_DISK_GB=0
+for _target in "${BUILD_TARGETS[@]}"; do
+  case "$_target" in
+    base)        (( REQUIRED_DISK_GB += DISK_SPACE_BASE_GB )) ;;
+    qemu)        (( REQUIRED_DISK_GB += DISK_SPACE_QEMU_GB )) ;;
+    virtualbox)  (( REQUIRED_DISK_GB += DISK_SPACE_VIRTUALBOX_GB )) ;;
+    vmware)      (( REQUIRED_DISK_GB += DISK_SPACE_VMWARE_GB )) ;;
+    all)         (( REQUIRED_DISK_GB += DISK_SPACE_BASE_GB + DISK_SPACE_QEMU_GB + DISK_SPACE_VIRTUALBOX_GB + DISK_SPACE_VMWARE_GB )) ;;
+  esac
+done
+assert_disk_space "$OUTPUT_DIR" "$REQUIRED_DISK_GB"
+unset _target REQUIRED_DISK_GB
+
 validate_build_targets "${BUILD_TARGETS[@]}" || exit 1
 check_platform_dependencies "${BUILD_TARGETS[@]}" || exit 1
 
