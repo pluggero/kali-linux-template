@@ -73,6 +73,8 @@ assert_python_dependencies "$PYTHON_REQUIREMENTS"
 # Verify system dependencies
 assert_dependencies
 
+validate_build_targets "${BUILD_TARGETS[@]}" || exit 1
+check_platform_dependencies "${BUILD_TARGETS[@]}" || exit 1
 
 clean_roles "$ROLES_DIR"
 install_roles "$ROLES_DIR"
