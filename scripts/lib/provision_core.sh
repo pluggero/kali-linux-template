@@ -174,16 +174,6 @@ function run_packer_build() {
   echo "Running Packer build for target(s): ${build_targets[*]}"
   echo "Using build date: $BUILD_DATE"
 
-  # Validate targets
-  if ! validate_build_targets "${build_targets[@]}"; then
-    return 1
-  fi
-
-  # Check if base image exists for platform targets
-  if ! check_platform_dependencies "${build_targets[@]}"; then
-    return 1
-  fi
-
   # Set custom TMPDIR if PACKER_TMPDIR is defined
   if [[ -n "${PACKER_TMPDIR:-}" ]]; then
     # Check if custom tmp directory exists
