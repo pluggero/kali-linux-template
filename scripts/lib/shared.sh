@@ -88,6 +88,39 @@ function assert_dependencies() {
   done
 }
 
+# Checks that sufficient disk space is available on the filesystem containing <path>.
+# Walks up to the nearest existing ancestor if <path> does not yet exist.
+# Usage: assert_disk_space <path> <min_gb>
+function assert_disk_space() {
+  local check_path="$1"
+  local min_gb="$2"
+
+  # Walk up to the nearest existing ancestor
+  local resolve_path="$check_path"
+  while [[ ! -d "$resolve_path" ]]; do
+    resolve_path="$(dirname "$resolve_path")"
+    if [[ "$resolve_path" == "/" ]]; then
+      echo "ERROR: Cannot resolve filesystem for path: $check_path"
+      exit 1
+    fi
+  done
+
+  local available_gb
+  available_gb=$(df -P "$resolve_path" | awk 'NR==2 {print int($4 / 1048576)}')
+
+  if [[ -z "$available_gb" ]]; then
+    echo "ERROR: Failed to determine available disk space for: $resolve_path"
+    exit 1
+  fi
+
+  if (( available_gb < min_gb )); then
+    echo "ERROR: Insufficient disk space."
+    echo "       Required : ${min_gb}G"
+    echo "       Available: ${available_gb}G"
+    exit 1
+  fi
+}
+
 function clean_roles() {
   local roles_dir="$1"
   if [ -d "$roles_dir" ]; then
