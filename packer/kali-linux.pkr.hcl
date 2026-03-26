@@ -30,7 +30,8 @@ source "qemu" "kali-linux-base" {
   disk_size        = "${var.vm_disk_size}M"
   disk_interface   = var.qemu_disk_interface
   net_device       = var.qemu_net_device
-  format           = var.qemu_format
+  format            = var.qemu_format
+  disk_compression  = var.qemu_disk_compression
   accelerator      = var.qemu_accelerator
   machine_type     = var.qemu_machine_type
   cpus             = var.vm_cpu_core
@@ -59,7 +60,8 @@ source "qemu" "kali-linux-qemu" {
   disk_size        = "${var.vm_disk_size}M"
   disk_interface   = var.qemu_disk_interface
   net_device       = var.qemu_net_device
-  format           = var.qemu_format
+  format            = var.qemu_format
+  disk_compression  = var.qemu_disk_compression
   accelerator      = var.qemu_accelerator
   machine_type     = var.qemu_machine_type
   cpus             = var.vm_cpu_core
@@ -88,7 +90,8 @@ source "qemu" "kali-linux-virtualbox" {
   disk_size        = "${var.vm_disk_size}M"
   disk_interface   = var.qemu_disk_interface
   net_device       = var.qemu_net_device
-  format           = var.qemu_format
+  format            = var.qemu_format
+  disk_compression  = var.qemu_disk_compression
   accelerator      = var.qemu_accelerator
   machine_type     = var.qemu_machine_type
   cpus             = var.vm_cpu_core
@@ -117,7 +120,8 @@ source "qemu" "kali-linux-vmware" {
   disk_size        = "${var.vm_disk_size}M"
   disk_interface   = var.qemu_disk_interface
   net_device       = var.qemu_net_device
-  format           = var.qemu_format
+  format            = var.qemu_format
+  disk_compression  = var.qemu_disk_compression
   accelerator      = var.qemu_accelerator
   machine_type     = var.qemu_machine_type
   cpus             = var.vm_cpu_core
@@ -185,23 +189,12 @@ build {
 
   provisioner "shell" {
     script          = "${path.root}/scripts/cleanup.sh"
-    execute_command = "sudo bash '{{ .Path }}'"
+    execute_command = "echo '${var.vm_ssh_password}' | sudo -S bash '{{ .Path }}'"
   }
 
   provisioner "breakpoint" {
     disable = true
     note    = "Breakpoint after ansible run"
-  }
-
-  # Post-processor: Compress base image for smaller output
-  post-processor "shell-local" {
-    inline = [
-      "set -e",
-      "echo 'Compressing base image with qemu-img convert -c...'",
-      "qemu-img convert -c -p -O qcow2 ${local.base_packer_output}/${local.vm_name}.qcow2 ${local.base_packer_output}/${local.vm_name}.qcow2.tmp",
-      "mv ${local.base_packer_output}/${local.vm_name}.qcow2.tmp ${local.base_packer_output}/${local.vm_name}.qcow2",
-      "echo 'Base image compression complete'"
-    ]
   }
 
   # Post-processor: Generate checksum file for downstream builds
@@ -258,17 +251,6 @@ build {
     extra_arguments = [
       "--extra-vars",
       "ansible_become_password=${var.vm_ssh_password} ansible_remote_tmp=/tmp ",
-    ]
-  }
-
-  # Post-processor: Compress qemu image for smaller output
-  post-processor "shell-local" {
-    inline = [
-      "set -e",
-      "echo 'Compressing qemu image with qemu-img convert -c...'",
-      "qemu-img convert -c -p -O qcow2 ${local.qemu_packer_output}/${local.vm_name}.qcow2 ${local.qemu_packer_output}/${local.vm_name}.qcow2.tmp",
-      "mv ${local.qemu_packer_output}/${local.vm_name}.qcow2.tmp ${local.qemu_packer_output}/${local.vm_name}.qcow2",
-      "echo 'Qemu image compression complete'"
     ]
   }
 
