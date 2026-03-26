@@ -34,13 +34,14 @@ vm_ssh_build_port            = 22
 vm_ssh_timeout               = "3600s"
 
 # QEMU Settings
-qemu_accelerator    = "kvm"
-qemu_disk_interface = "virtio"
-qemu_net_device     = "virtio-net"
-qemu_format         = "qcow2"
-qemu_machine_type   = "q35"
-qemu_display        = "none"
-qemu_headless       = "true"
+qemu_accelerator        = "kvm"
+qemu_disk_interface     = "virtio"
+qemu_net_device         = "virtio-net"
+qemu_format             = "qcow2"
+qemu_machine_type       = "q35"
+qemu_display            = "none"
+qemu_headless           = "true"
+qemu_disk_compression   = true
 
 # VirtulBox Settings
 vbox_graphics_controller = "vmsvga"

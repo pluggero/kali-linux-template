@@ -355,6 +355,12 @@ variable "qemu_headless" {
   default     = ""
 }
 
+variable "qemu_disk_compression" {
+  description = "Apply compression to the QCOW2 disk file using qemu-img convert"
+  type        = bool
+  default     = false
+}
+
 # VirtualBox Settings
 
 variable "vbox_graphics_controller" {
