@@ -6,6 +6,7 @@
   vars_files:
     - ../inventory/group_vars/all/vault.yml
     - ../vars/alacritty.yml
+    - ../vars/bibata_cursor.yml
     - ../vars/burpsuite_community.yml
     - ../vars/burpsuite_general.yml
     - ../vars/common_pkgs.yml
