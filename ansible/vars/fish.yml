@@ -3,6 +3,12 @@ fish_enable_vim_mode: true
 fish_env_variables:
   - name: GPG_TTY # Fix GPG with fish shell
     value: "(tty)"
+  - name: XCURSOR_SIZE
+    value: "22"
+  - name: XCURSOR_THEME
+    value: "Bibata-Modern-Ice"
+  - name: "WINIT_X11_SCALE_FACTOR" # To fix DPI resolution in alacritty
+    value: "1"
 fish_abbreviations:
   - name: l
     value: "ls -lah"
