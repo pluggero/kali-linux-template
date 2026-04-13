@@ -50,4 +50,5 @@ export SSH_PORT
 ANSIBLE_CONFIG="$ANSIBLE_CONFIG_FILE" \
   ansible-playbook \
   "$POST_DEPLOY_PLAYBOOK" \
-  --extra-vars ansible_become_password="$VM_PASSWORD"
+  --extra-vars ansible_become_password="$VM_PASSWORD" \
+  --extra-vars post_deploy_disk_space_min_mb="$(( DISK_SPACE_POST_DEPLOY_GB * 1024 ))"

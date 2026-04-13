@@ -11,13 +11,13 @@
 
 - name: Display current available disk space
   ansible.builtin.debug:
-    msg: "Available disk space on /: {{ pre_task_disk_space_available.stdout }} MB ({{ (pre_task_disk_space_available.stdout | int / 1024) | round(2) }} GB)"
+    msg: "Available disk space on /: {{ pre_task_disk_space_available.stdout }} MB ({{ (pre_task_disk_space_available.stdout | int / 1024) | round(2) }} GB) — Required: {{ post_deploy_disk_space_min_mb }} MB"
 
 - name: Fail if insufficient disk space
   ansible.builtin.fail:
     msg: >-
       ERROR: Insufficient disk space on root filesystem (/).
       Available: {{ pre_task_disk_space_available.stdout }} MB ({{ (pre_task_disk_space_available.stdout | int / 1024) | round(2) }} GB).
-      Required: 5120 MB (5 GB) minimum.
+      Required: {{ post_deploy_disk_space_min_mb }} MB ({{ (post_deploy_disk_space_min_mb | int / 1024) | round(2) }} GB) minimum.
       Please free up disk space or expand the virtual disk before continuing.
-  when: pre_task_disk_space_available.stdout | int < 5120
+  when: pre_task_disk_space_available.stdout | int < post_deploy_disk_space_min_mb | int
