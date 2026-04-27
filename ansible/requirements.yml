@@ -17,7 +17,7 @@ roles:
   - src: pluggero.virtualbox_guest
     version: 2.4.0
   - src: pluggero.neovim
-    version: 1.20.0
+    version: 1.22.0
   - src: pluggero.firefox
     version: 1.18.0
   - src: pluggero.rofi
