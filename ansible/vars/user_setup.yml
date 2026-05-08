@@ -4,7 +4,8 @@ user_setup_users:
     state: present
     shell: "/bin/bash"
     create_home: true
-    password: "{{ user_setup_root_password | password_hash('sha512', user_setup_root_salt) }}"
+    password: "{{ user_setup_root_password }}"
+    password_salt: "{{ user_setup_root_salt }}"
     sudo_access: false
     sudo_nopasswd: false
     env_var_setup: false
@@ -20,7 +21,8 @@ user_setup_users:
     create_home: true
     groups: []
     groups_append: true
-    password: "{{ user_setup_user_password | password_hash('sha512', user_setup_user_password_salt) }}"
+    password: "{{ user_setup_user_password }}"
+    password_salt: "{{ user_setup_user_password_salt }}"
     sudo_access: true
     sudo_nopasswd: false
     env_var_setup: false
