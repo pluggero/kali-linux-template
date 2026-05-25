@@ -8,7 +8,8 @@ openssh_server:
   permit_root_login: false
   password_authentication: false
   pubkey_authentication: true
-  authentication_methods: "publickey"
+  authentication_methods:
+    - "publickey"
   # Cryptography
   kex:
     - "curve25519-sha256"
