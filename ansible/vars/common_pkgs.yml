@@ -43,6 +43,7 @@ common_pkgs_apt:
     - adb
     - libimobiledevice-utils
     - libusbmuxd-tools
+    - libplist-utils
     - qrencode
     - sqlitebrowser
     - usbmuxd
