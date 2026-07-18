@@ -50,14 +50,13 @@ fish_prompt_custom: |
   test $status = 0; and set retc green
 
   # Duration of last command, own line, omitted entirely when there's
-  # nothing to report (no extra blank line). --final-rendering must reuse
-  # the same normal draw's decision (not recompute) so a row's own two
-  # passes agree on whether the line exists - that's the only alignment
-  # constraint; different rows are free to differ in height from each
-  # other. Uses a fish_postexec flag (fires once per finished command, any
-  # duration) rather than comparing CMD_DURATION values - two consecutive
-  # fast commands can easily round to the identical ms value, which a
-  # value-comparison would wrongly treat as "nothing new happened".
+  # nothing to report (no extra blank line). A row can be redrawn several
+  # times in normal mode before it closes (e.g. terminal resize), so the
+  # flag must survive those redraws and only be cleared on --final-rendering
+  # - fish's reliable "row is closing" signal, fired for real commands and
+  # empty Enter alike. Uses a fish_postexec flag rather than comparing
+  # CMD_DURATION values, since two consecutive fast commands can round to
+  # the same ms value.
   function __cmd_postexec_flag --on-event fish_postexec
       set -g __cmd_just_finished 1
   end
@@ -65,10 +64,10 @@ fish_prompt_custom: |
   set -l should_show_duration 0
   if contains -- --final-rendering $argv
       set should_show_duration $__prompt_shows_duration
+      set -e __cmd_just_finished
   else
       if set -q __cmd_just_finished
           set should_show_duration 1
-          set -e __cmd_just_finished
       end
       set -g __prompt_shows_duration $should_show_duration
   end
