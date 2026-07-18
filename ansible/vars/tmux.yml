@@ -20,7 +20,7 @@ tmux_key_bindings:
       send-keys -X search-backward "$USER@$hostname" \;
       send-keys -X start-of-line \;
       send-keys -X begin-selection \;
-      send-keys -X cursor-down \; \
+      send-keys -X cursor-down \;
       send-keys -X search-forward "$USER@$hostname" \;
       send-keys -X cursor-up \;
       send-keys -X end-of-line
