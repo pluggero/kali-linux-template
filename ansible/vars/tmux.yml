@@ -10,7 +10,7 @@ tmux_key_bindings:
     flags: ""
     command: "send-keys 'C-l'"
   # Helper to copy the last command quickly
-  # This combination only works with the nim prompt of fish shell
+  # This combination only works with my custom fish prompt
   - key: "C-y"
     flags: "-n"
     command: >-
@@ -18,12 +18,12 @@ tmux_key_bindings:
       send-keys -X cursor-up \;
       send-keys -X cursor-up \;
       send-keys -X search-backward "$USER@$hostname" \;
-      send-keys -X cursor-down \;
+      send-keys -X start-of-line \;
       send-keys -X begin-selection \;
+      send-keys -X cursor-down \; \
       send-keys -X search-forward "$USER@$hostname" \;
       send-keys -X cursor-up \;
-      send-keys -X end-of-line \;
-      send-keys -X cursor-left
+      send-keys -X end-of-line
 
 tmux_plugins:
   - name: "vim-tmux-navigator"

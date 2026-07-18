@@ -26,3 +26,184 @@ fish_functions:
         builtin cd -- "$cwd"
       end
       rm -f -- "$tmp"
+fish_colors:
+  - name: fish_color_command
+    value: "green"
+  - name: fish_color_param
+    value: "magenta"
+  - name: fish_color_valid_path
+    value: "blue"
+fish_prompt_custom: |
+  # Example:
+  # [nim@Hattori:~]-[2026-07-18 02:07:06pm UTC+2]-[I]
+  # $ sleep 2
+  # [took 2s]
+  # [nim@Hattori:~/w/dashboard]-[2026-07-18 02:07:09pm UTC+2]-[I]-[V:django20]-[G:main]
+  # | 2    15054    0%    running    sleep 100000
+  # $ echo hi
+  # hi
+  # [took 12ms]
+  # [nim@Hattori:~/w/dashboard]-[2026-07-18 02:07:09pm UTC+2]-[I]-[V:django20]-[G:main]
+  # $
+
+  set -l retc red
+  test $status = 0; and set retc green
+
+  # Duration of last command, own line, omitted entirely when there's
+  # nothing to report (no extra blank line). --final-rendering must reuse
+  # the same normal draw's decision (not recompute) so a row's own two
+  # passes agree on whether the line exists - that's the only alignment
+  # constraint; different rows are free to differ in height from each
+  # other. Uses a fish_postexec flag (fires once per finished command, any
+  # duration) rather than comparing CMD_DURATION values - two consecutive
+  # fast commands can easily round to the identical ms value, which a
+  # value-comparison would wrongly treat as "nothing new happened".
+  function __cmd_postexec_flag --on-event fish_postexec
+      set -g __cmd_just_finished 1
+  end
+
+  set -l should_show_duration 0
+  if contains -- --final-rendering $argv
+      set should_show_duration $__prompt_shows_duration
+  else
+      if set -q __cmd_just_finished
+          set should_show_duration 1
+          set -e __cmd_just_finished
+      end
+      set -g __prompt_shows_duration $should_show_duration
+  end
+
+  if test "$should_show_duration" = 1
+      set -l dur_label
+      if test $CMD_DURATION -lt 1000
+          set dur_label $CMD_DURATION"ms"
+      else
+          set -l total_s (math -s0 "$CMD_DURATION / 1000")
+          set -l dur_h (math -s0 "$total_s / 3600")
+          set -l dur_m (math -s0 "($total_s % 3600) / 60")
+          set -l dur_s (math -s0 "$total_s % 60")
+          if test $dur_h -gt 0
+              set dur_label ""$dur_h"h "$dur_m"m "$dur_s"s"
+          else if test $dur_m -gt 0
+              set dur_label ""$dur_m"m "$dur_s"s"
+          else
+              set dur_label (math -s1 "$CMD_DURATION / 1000")"s"
+          end
+      end
+      set_color -o red
+      echo "[took "$dur_label"]"
+      set_color normal
+  end
+
+  set -q __fish_git_prompt_showupstream
+  or set -g __fish_git_prompt_showupstream auto
+
+  # Wraps one "-[name:value]" segment.
+  function _nim_prompt_wrapper
+      set retc $argv[1]
+      set -l field_name $argv[2]
+      set -l field_value $argv[3]
+
+      set_color normal
+      set_color $retc
+      echo -n '-'
+      set_color -o green
+      echo -n '['
+      set_color normal
+      test -n $field_name
+      and echo -n $field_name:
+      set_color $retc
+      echo -n $field_value
+      set_color -o green
+      echo -n ']'
+  end
+
+  set_color -o green
+  echo -n [
+
+  if functions -q fish_is_root_user; and fish_is_root_user
+      set_color -o red
+  else
+      set_color -o yellow
+  end
+
+  echo -n $USER
+  set_color -o white
+  echo -n @
+
+  if test -z "$SSH_CLIENT"
+      set_color -o blue
+  else
+      set_color -o cyan
+  end
+
+  echo -n (prompt_hostname)
+  set_color -o white
+  echo -n :(prompt_pwd)
+  set_color -o green
+  echo -n ']'
+
+  # Date/time + UTC offset. fish_transient_prompt repaints this row on
+  # submit, so a plain `date` call here reflects the actual submit time.
+  set -g fish_transient_prompt 1
+  set -l tz (date "+%z")
+  set -l tz_sign (string sub -l 1 -- $tz)
+  set -l tz_hh (math (string sub -s 2 -l 2 -- $tz))
+  set -l tz_mm (string sub -s 4 -l 2 -- $tz)
+  set -l tz_label "UTC$tz_sign$tz_hh"
+  test "$tz_mm" != "00"; and set tz_label "$tz_label:$tz_mm"
+  _nim_prompt_wrapper $retc '' (date "+%Y-%m-%d %I:%M:%S%P")" $tz_label"
+
+  # Vi-mode (default mode-prompt would misalign this layout)
+  function fish_mode_prompt
+  end
+
+  if test "$fish_key_bindings" = fish_vi_key_bindings
+      or test "$fish_key_bindings" = fish_hybrid_key_bindings
+      set -l mode
+      switch $fish_bind_mode
+          case default
+              set mode (set_color --bold red)N
+          case insert
+              set mode (set_color --bold green)I
+          case replace_one
+              set mode (set_color --bold green)R
+              echo '[R]'
+          case replace
+              set mode (set_color --bold cyan)R
+          case visual
+              set mode (set_color --bold magenta)V
+      end
+      set mode $mode(set_color normal)
+      _nim_prompt_wrapper $retc '' $mode
+  end
+
+
+  # Virtual Environment
+  set -q VIRTUAL_ENV_DISABLE_PROMPT
+  or set -g VIRTUAL_ENV_DISABLE_PROMPT true
+  set -q VIRTUAL_ENV
+  and _nim_prompt_wrapper $retc V (basename "$VIRTUAL_ENV")
+
+  # git
+  set -l prompt_git (fish_git_prompt '%s')
+  test -n "$prompt_git"
+  and _nim_prompt_wrapper $retc G $prompt_git
+
+  # New line
+  echo
+
+  # Background jobs
+  set_color normal
+
+  for job in (jobs)
+      set_color $retc
+      echo -n '| '
+      set_color brown
+      echo $job
+  end
+
+  set_color normal
+  set_color -o red
+  echo -n '$ '
+  set_color normal
