@@ -6,7 +6,7 @@ packer {
       source  = "github.com/hashicorp/ansible"
     }
     qemu = {
-      version = "= 1.1.4"
+      version = "= 1.1.6"
       source  = "github.com/hashicorp/qemu"
     }
   }
