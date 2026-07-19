@@ -4,6 +4,7 @@ set -euo pipefail
 echo "Cleaning apt cache..."
 apt-get clean -y
 rm -rf /var/lib/apt/lists/*
+touch -d @0 /var/lib/apt/lists
 
 echo "Vacuuming journal logs..."
 journalctl --vacuum-size=1M || true
