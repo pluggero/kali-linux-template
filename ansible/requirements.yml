@@ -43,7 +43,7 @@ roles:
   - src: pluggero.upgrade
     version: 1.4.0
   - src: pluggero.tool_installer
-    version: 1.0.0
+    version: 1.1.0
   - src: pluggero.git
     version: 1.1.1
   - src: pluggero.openssh
