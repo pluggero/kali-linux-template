@@ -33,24 +33,24 @@ packer init packer/versions.pkr.hcl
 Create `ansible/inventory/group_vars/all/vault.yml`:
 
 ```yaml
-ansible_user: "username"
-ansible_ssh_private_key_file: "path/to/key"
+vault_ansible_user: "username"
+vault_ansible_ssh_private_key_file: "path/to/key"
 
 # VM Configuration
-vm_hostname: "custom-hostname"
-vm_domain: ""
-vm_username: "username"
-vm_user_fullname: "Kali User"
+vault_vm_hostname: "custom-hostname"
+vault_vm_domain: ""
+vault_vm_username: "username"
+vault_vm_user_fullname: "Kali User"
 
 # System Passwords
-vm_grub_password: "<secure-password>"
+vault_vm_grub_password: "<secure-password>"
 
 # User Setup
-user_setup_root_password: "<secure-password>"
-user_setup_root_salt: "<16-char-salt-no-special-chars>"
-user_setup_user_password: "<secure-password>"
-user_setup_user_password_salt: "<16-char-salt-no-special-chars>"
-user_setup_user_ssh_public_keys:
+vault_user_setup_root_password: "<secure-password>"
+vault_user_setup_root_salt: "<16-char-salt-no-special-chars>"
+vault_user_setup_user_password: "<secure-password>"
+vault_user_setup_user_password_salt: "<16-char-salt-no-special-chars>"
+vault_user_setup_user_ssh_public_keys:
   - key: "ssh-ed25519 ..."
 ```
 

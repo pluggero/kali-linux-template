@@ -1,4 +1,10 @@
 ---
+user_setup_root_password: "{{ vault_user_setup_root_password }}"
+user_setup_root_salt: "{{ vault_user_setup_root_salt }}"
+user_setup_user_password: "{{ vault_user_setup_user_password }}"
+user_setup_user_password_salt: "{{ vault_user_setup_user_password_salt }}"
+user_setup_user_ssh_public_keys: "{{ vault_user_setup_user_ssh_public_keys }}"
+
 user_setup_users:
   - name: root
     state: present

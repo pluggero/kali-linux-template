@@ -183,33 +183,33 @@ function extract_vault_field() {
 }
 
 function extract_vm_password() {
-  extract_vault_field "$1" "$2" "user_setup_user_password"
+  extract_vault_field "$1" "$2" "vault_user_setup_user_password"
 }
 
 function extract_vm_hostname() {
-  extract_vault_field "$1" "$2" "vm_hostname"
+  extract_vault_field "$1" "$2" "vault_vm_hostname"
 }
 
 function extract_vm_domain() {
-  extract_vault_field "$1" "$2" "vm_domain"
+  extract_vault_field "$1" "$2" "vault_vm_domain"
 }
 
 function extract_vm_username() {
-  extract_vault_field "$1" "$2" "vm_username"
+  extract_vault_field "$1" "$2" "vault_vm_username"
 }
 
 function extract_vm_user_fullname() {
-  extract_vault_field "$1" "$2" "vm_user_fullname"
+  extract_vault_field "$1" "$2" "vault_vm_user_fullname"
 }
 
 function extract_vm_grub_password() {
-  extract_vault_field "$1" "$2" "vm_grub_password"
+  extract_vault_field "$1" "$2" "vault_vm_grub_password"
 }
 
 function extract_vm_root_password() {
-  extract_vault_field "$1" "$2" "user_setup_root_password"
+  extract_vault_field "$1" "$2" "vault_user_setup_root_password"
 }
 
 function extract_vm_root_password_salt() {
-  extract_vault_field "$1" "$2" "user_setup_root_salt"
+  extract_vault_field "$1" "$2" "vault_user_setup_root_salt"
 }
