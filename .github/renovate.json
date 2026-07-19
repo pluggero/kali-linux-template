@@ -79,6 +79,18 @@
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "hashicorp/packer-plugin-virtualbox",
       "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^packer/versions.pkr\\.hcl$/"
+      ],
+      "matchStrings": [
+        "qemu\\s+=\\s+\\{\\s+version\\s+=\\s+\"=\\s+(?<currentValue>[\\d\\.]+)\""
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "hashicorp/packer-plugin-qemu",
+      "versioningTemplate": "semver"
     }
   ],
   "customDatasources": {
