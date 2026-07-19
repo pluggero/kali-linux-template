@@ -24,7 +24,7 @@ ansible_playbook_vmware      = "../ansible/playbooks/provision-vmware.yml"
 
 # Virtual Machine Settings
 vm_guest_os_version          = "2026.2"
-vm_guest_iso_checksum_x86_64 = "271477ad6ea2676c7346576971b9acc2d32fabd9c2bbaf0e6302397626149306"
+vm_guest_iso_checksum_x86_64 = "6dbefacc95e3b556c19c48e8bae39b8b505e2d3a1aba0bfb7ab62b036c3d2ba3"
 vm_boot_wait                 = "10s"
 vm_cpu_core                  = 4
 vm_mem_size                  = 6144 # Must be at least 6144 (MB) for /tmp to be large enough
