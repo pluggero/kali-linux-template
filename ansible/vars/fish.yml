@@ -129,7 +129,8 @@ fish_prompt_custom: |
   # - fish's reliable "row is closing" signal, fired for real commands and
   # empty Enter alike. Uses a fish_postexec flag rather than comparing
   # CMD_DURATION values, since two consecutive fast commands can round to
-  # the same ms value.
+  # the same ms value. __prompt_suppress_duration lets clear_and_repaint
+  # force a clean prompt (no stale duration) on a manual screen clear.
   function __cmd_postexec_flag --on-event fish_postexec
       set -g __cmd_just_finished 1
   end
@@ -138,6 +139,10 @@ fish_prompt_custom: |
   if contains -- --final-rendering $argv
       set should_show_duration $__prompt_shows_duration
       set -e __cmd_just_finished
+  else if set -q __prompt_suppress_duration
+      set -e __prompt_suppress_duration
+      set -e __cmd_just_finished
+      set -g __prompt_shows_duration 0
   else
       if set -q __cmd_just_finished
           set should_show_duration 1
