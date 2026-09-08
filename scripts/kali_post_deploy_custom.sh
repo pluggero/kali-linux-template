@@ -21,7 +21,7 @@ assert_python_dependencies "$PYTHON_REQUIREMENTS"
 # Verify system dependencies
 assert_dependencies
 
-wait_for_ssh "kali.local"
+wait_for_ssh "project.kali.local"
 
 clean_roles "$ROLES_DIR"
 install_roles "$ROLES_DIR"
