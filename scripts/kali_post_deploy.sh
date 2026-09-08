@@ -35,10 +35,10 @@ echo "Waiting for VM '$new_vm' to acquire an IP address..."
 ip_address=$(wait_for_vm_ip "$new_vm")
 
 echo "Add to /etc/hosts:"
-echo "$ip_address kali.local"
+echo "$ip_address project.kali.local"
 read -rp "Press Enter to continue..."
 
-wait_for_ssh "kali.local"
+wait_for_ssh "project.kali.local"
 
 clean_roles "$ROLES_DIR"
 install_roles "$ROLES_DIR"
