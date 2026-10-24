@@ -58,6 +58,8 @@ firefox_profile_user_prefs:
     value: "false"
   - name: "general.useragent.locale"
     value: "en-US"
+  - name: "media.webspeech.synth.enabled"
+    value: "false"
   - name: "network.captive-portal-service.enabled"
     value: "false"
   - name: "signon.management.page.breach-alerts.enabled"
