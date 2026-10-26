@@ -23,7 +23,7 @@ ansible_playbook_virtualbox  = "../ansible/playbooks/provision-virtualbox.yml"
 ansible_playbook_vmware      = "../ansible/playbooks/provision-vmware.yml"
 
 # Virtual Machine Settings
-vm_guest_os_version          = "2026.2"
+vm_guest_os_version          = "2026.3"
 vm_guest_iso_checksum_x86_64 = "6dbefacc95e3b556c19c48e8bae39b8b505e2d3a1aba0bfb7ab62b036c3d2ba3"
 vm_boot_wait                 = "10s"
 vm_cpu_core                  = 4
