@@ -29,6 +29,7 @@ common_pkgs_apt:
     - rsync
     - seclists
     - smbclient
+    - unison
     - usbutils
     - wafw00f
     - wireplumber
@@ -36,6 +37,7 @@ common_pkgs_apt:
     - xclip
     - xxd
     - freerdp3-x11
+    - vim
     - whois
     - zip
     - zoxide
