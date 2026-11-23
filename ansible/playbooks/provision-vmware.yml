@@ -6,7 +6,8 @@
   vars_files:
     - ../inventory/group_vars/all/vault.yml
 
-  roles: []
+  roles:
+    - pluggero.vmware_tools
 
 - name: Import workarounds playbook
   ansible.builtin.import_playbook: provision-workarounds.yml

@@ -384,22 +384,22 @@ build {
     "source.qemu.kali-linux-vmware"
   ]
 
-  # provisioner "ansible" {
-  #   collections_path = "${path.root}/${var.ansible_collections_path}"
-  #   roles_path       = "${path.root}/${var.ansible_roles_path}"
-  #   playbook_file    = "${path.root}/${var.ansible_playbook_vmware}"
-  #   user             = "${var.vm_ssh_username}"
-  #   ansible_env_vars = [
-  #     "ANSIBLE_ROLES_PATH=${path.root}/${var.ansible_roles_path}",
-  #     "ANSIBLE_VAULT_PASSWORD_FILE=${path.root}/${var.ansible_vault_password_file}",
-  #     "ANSIBLE_FORCE_COLOR=true",
-  #     "ANSIBLE_HOST_KEY_CHECKING=false",
-  #   ]
-  #   extra_arguments = [
-  #     "--extra-vars",
-  #     "ansible_become_password=${var.vm_ssh_password} ansible_remote_tmp=/tmp ",
-  #   ]
-  # }
+  provisioner "ansible" {
+   collections_path = "${path.root}/${var.ansible_collections_path}"
+   roles_path       = "${path.root}/${var.ansible_roles_path}"
+   playbook_file    = "${path.root}/${var.ansible_playbook_vmware}"
+   user             = "${var.vm_ssh_username}"
+   ansible_env_vars = [
+     "ANSIBLE_ROLES_PATH=${path.root}/${var.ansible_roles_path}",
+     "ANSIBLE_VAULT_PASSWORD_FILE=${path.root}/${var.ansible_vault_password_file}",
+     "ANSIBLE_FORCE_COLOR=true",
+     "ANSIBLE_HOST_KEY_CHECKING=false",
+   ]
+   extra_arguments = [
+     "--extra-vars",
+     "ansible_become_password=${var.vm_ssh_password} ansible_remote_tmp=/tmp ",
+   ]
+  }
 
   provisioner "ansible" {
     collections_path = "${path.root}/${var.ansible_collections_path}"

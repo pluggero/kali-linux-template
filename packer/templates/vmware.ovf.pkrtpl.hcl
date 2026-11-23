@@ -83,6 +83,7 @@
         <rasd:ResourceSubType>E1000</rasd:ResourceSubType>
         <rasd:ResourceType>10</rasd:ResourceType>
       </Item>
+      <vmw:Config ovf:required="false" vmw:key="firmware" vmw:value="efi"/>
     </VirtualHardwareSection>
   </VirtualSystem>
 </Envelope>
